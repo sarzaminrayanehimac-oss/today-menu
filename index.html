@@ -31,7 +31,7 @@ p.s{color:var(--mut);margin:0 0 22px}
 details summary{cursor:pointer;color:var(--ac);font-weight:700}
 ol{padding-right:20px;margin:6px 0}
 .f{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
-input,select{width:100%;font:inherit;padding:9px;border-radius:10px;border:1px solid var(--br);background:var(--bg);color:var(--fg)}
+input,select,textarea{width:100%;font:inherit;padding:9px;border-radius:10px;border:1px solid var(--br);background:var(--bg);color:var(--fg)}
 .days{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:16px}
 .m{font-size:.82rem;color:var(--mut);margin-top:6px}.m select{margin-top:2px}
 .sm{font-size:.8rem;color:var(--mut)}
@@ -45,7 +45,7 @@ footer{text-align:center;color:var(--mut);padding:30px 18px 60px;position:relati
 <section class="hero">
   <h1>امروز <span>چی بپزم؟</span></h1>
   <p class="s" style="font-size:1.2rem;max-width:520px">دیگه لازم نیست هر روز از خودت بپرسی ناهار چی داریم! ببین تو یخچال چی داری، بقیه‌اش با ما.</p>
-  <div><a class="btn" href="#fridge">یخچالو نگاه کن 🧊</a><a class="btn o" href="#plan">برنامه غذایی من 📅</a></div>
+  <div><a class="btn" href="#fridge">یخچالو نگاه کن 🧊</a><a class="btn o" href="#menu">همه‌ی غذاها 📖</a><a class="btn o" href="#plan">برنامه غذایی من 📅</a></div>
   <p class="sm" style="margin-top:40px">⬇ اسکرول کن</p>
 </section>
 
@@ -53,8 +53,29 @@ footer{text-align:center;color:var(--mut);padding:30px 18px 60px;position:relati
   <h2>تو یخچال و کابینت چی داری؟</h2>
   <p class="s">هر چی داری رو بزن تا غذاهایی که می‌شه باهاش پخت بیاد. (پیاز، رب، روغن، نمک و ادویه رو همیشه داری حساب کردیم.)</p>
   <div id="ings" class="card"></div>
+  <div class="card" style="margin-top:12px"><b>ماده‌ی دیگه‌ای داری که تو لیست نیست؟</b><div style="display:flex;gap:8px;margin-top:8px"><input id="ni" list="dl" placeholder="مثلاً ذرت، ماش، سس..."><button class="btn" id="na" style="margin:0;white-space:nowrap">اضافه کن</button></div><datalist id="dl"></datalist></div>
   <div style="margin:12px 0"><button class="btn" id="rnd">🎲 یه چیزی پیشنهاد بده</button><button class="btn o" id="clr">پاک کردن همه</button></div>
   <div id="res" class="res"></div>
+</section>
+
+<section id="menu" class="rv">
+  <h2>همه‌ی غذاها 📖</h2>
+  <p class="s">اگه ایده نداری، یه نگاه بنداز؛ شاید با دیدنشون یادت بیاد دلت چی می‌خواد. ❤️ بزن تا تو علاقه‌مندی‌هات بمونه.</p>
+  <input id="q" placeholder="جستجو: اسم غذا یا ماده‌ی اصلی (مثلاً عدس)">
+  <div id="fl" style="margin:10px 0"></div>
+  <div id="all" class="res"></div>
+  <details class="card" style="margin-top:16px"><summary>➕ غذای خودم رو اضافه کنم</summary>
+    <div class="f" style="margin-top:12px">
+      <div class="g"><b>اسم غذا</b><input id="mn"></div>
+      <div class="g"><b>مناسب برای</b><select id="mt"><option value="m">ناهار و شام</option><option value="b">صبحانه</option><option value="s">میان‌وعده</option></select></div>
+      <div class="g"><b>کالری هر پرس (تقریبی)</b><input id="mc" type="number" placeholder="مثلاً 450"></div>
+      <div class="g"><b>زمان پخت (دقیقه)</b><input id="mm" type="number" placeholder="مثلاً 40"></div>
+    </div>
+    <div class="g"><b>مواد اصلی (با ویرگول جدا کن)</b><input id="mi" placeholder="مثلاً مرغ، قارچ، برنج"></div>
+    <div class="g"><b>مواد و مقدار برای ۲ نفر (اختیاری)</b><input id="mq"></div>
+    <div class="g"><b>طرز تهیه (هر خط یه مرحله)</b><textarea id="ms" rows="4"></textarea></div>
+    <button class="btn" id="ma">ذخیره‌ی غذا</button>
+  </details>
 </section>
 
 <section id="plan" class="rv">
@@ -78,12 +99,12 @@ footer{text-align:center;color:var(--mut);padding:30px 18px 60px;position:relati
   <button class="btn o" id="sh" style="display:none">🔀 یه برنامه جدید بچین</button>
 </section>
 </main>
-<footer>ساخته‌شده با ❤️ برای همه‌ی خونه‌هایی که هر روز می‌پرسن «ناهار چی داریم؟»</footer>
+<footer><p class="sm">همه‌چیز (مواد، برنامه، غذاهای خودت) خودکار روی همین مرورگر ذخیره می‌شه. اگه مرورگرت رو پاک کردی از بین می‌ره، پس یه نسخه‌ی پشتیبان بگیر:</p><button class="btn o" id="ex">📥 پشتیبان‌گیری</button><label class="btn o" for="im">📤 بازیابی</label><input id="im" type="file" accept=".json" hidden><p>ساخته‌شده با ❤️ برای همه‌ی خونه‌هایی که هر روز می‌پرسن «ناهار چی داریم؟»</p></footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 const $=s=>document.querySelector(s),f=n=>Number(n).toLocaleString('fa-IR');
-const IG={"گوشت و پروتئین":["گوشت قرمز","مرغ","ماهی","تخم‌مرغ"],"حبوبات و غلات":["برنج","عدس","لوبیا","نخود","لپه","ماکارونی"],"سبزیجات":["سیب‌زمینی","گوجه","بادمجان","کدو","سبزی","لوبیا سبز"],"لبنیات و بقیه":["ماست","پنیر","نان","گردو"]};
+const IG={"گوشت و پروتئین":["گوشت قرمز","مرغ","ماهی","تخم‌مرغ"],"حبوبات و غلات":["برنج","عدس","لوبیا","نخود","لپه","ماکارونی","رشته","جو"],"سبزیجات":["سیب‌زمینی","گوجه","بادمجان","کدو","سبزی","لوبیا سبز","اسفناج","قارچ","کلم","هویج"],"لبنیات و بقیه":["ماست","پنیر","کشک","نان","گردو","عسل","میوه"]};
 // t: b=صبحانه m=ناهار/شام s=میان‌وعده | c=کالری هر پرس | m=مواد اصلی لازم
 const R=[
 {n:"املت",t:"bm",c:300,tm:10,m:["تخم‌مرغ","گوجه"],i:"۴ تخم‌مرغ، ۳ گوجه، ۱ پیاز کوچک، روغن، نمک و فلفل",s:["پیاز رو خلالی کن و تو روغن تفت بده.","گوجه‌ها رو ریز کن و بریز، تا آب‌شون کشیده بشه.","تخم‌مرغ‌ها رو بشکن روش، بذار ببنده یا هم بزن."]},
@@ -106,22 +127,68 @@ const R=[
 {n:"خوراک کدو",t:"m",c:260,tm:30,m:["کدو","گوجه"],i:"۳ کدو سبز، ۲ گوجه، ۱ پیاز، سیر، زردچوبه",s:["پیاز و سیر رو تفت بده، کدو حلقه‌ای بریز.","گوجه رو اضافه کن و درِ ماهیتابه رو بذار.","۱۵ دقیقه آروم بپز."]},
 {n:"ته‌چین مرغ",t:"m",c:640,tm:120,m:["مرغ","برنج","ماست","تخم‌مرغ"],i:"۲۰۰ گرم مرغ، ۱ پیمانه برنج، ۱ پیمانه ماست، ۲ تخم‌مرغ، زعفران",s:["مرغ رو بپز و ریش‌ریش کن.","برنج رو با ماست، تخم‌مرغ و زعفران مخلوط کن.","لایه لایه تو قالب بچین و ۱.۵ ساعت تو فر ۱۸۰ بپز."]},
 {n:"ماست و خیار",t:"s",c:110,tm:3,m:["ماست"],i:"۱ کاسه ماست و خیار خرد‌شده",s:["قاطی کن و بخور."]},
-{n:"مغزجات و میوه",t:"s",c:180,tm:2,m:["گردو"],i:"یه مشت گردو و یه میوه",s:["بخور و لذت ببر."]}
+{n:"مغزجات و میوه",t:"s",c:180,tm:2,m:["گردو"],i:"یه مشت گردو و یه میوه",s:["بخور و لذت ببر."]},
+{n:"خوراک اسفناج",t:"m",c:250,tm:30,m:["اسفناج","تخم‌مرغ"],i:"۵۰۰ گرم اسفناج، ۲ تخم‌مرغ، ۱ پیاز، سیر",s:["پیاز و سیر رو تفت بده، اسفناج خرد‌شده رو بریز تا آبش کشیده بشه.","تخم‌مرغ‌ها رو روش بشکن و بذار ببنده."]},
+{n:"املت قارچ",t:"bm",c:320,tm:15,m:["قارچ","تخم‌مرغ"],i:"۲۰۰ گرم قارچ، ۳ تخم‌مرغ، ۱ پیاز",s:["پیاز و قارچ ورقه‌ای رو تفت بده تا آب‌شون کشیده بشه.","تخم‌مرغ رو بشکن روش و قبل از سفت شدن بردار."]},
+{n:"کلم‌پلو",t:"m",c:560,tm:80,m:["کلم","گوشت قرمز","برنج"],i:"۲۰۰ گرم گوشت (ریز یا چرخ‌کرده)، ۲۵۰ گرم کلم، ۱ پیمانه برنج، سبزی کلم‌پلو",s:["گوشت و پیاز رو تفت بده و بپز تا نرم بشه.","کلم رو خرد کن و با برنج آبکش‌شده لایه لایه بچین.","دم کن (۴۵ دقیقه) و با ماست سرو کن."]},
+{n:"آش رشته",t:"m",c:380,tm:90,m:["رشته","لوبیا","سبزی"],i:"۱۰۰ گرم رشته، ۱/۳ پیمانه لوبیا و نخود، ۲ پیمانه سبزی آش، پیاز داغ، کشک",s:["لوبیا و نخود رو بپز تا نرم بشه.","سبزی رو اضافه کن، بعد رشته رو بریز.","با پیاز داغ، نعنا داغ و کشک سرو کن."]},
+{n:"سوپ جو",t:"m",c:320,tm:80,m:["جو","هویج","مرغ"],i:"۱/۲ پیمانه جو، ۱ ران مرغ، ۱ هویج، ۱ پیاز، جعفری",s:["جو و مرغ و پیاز رو تو آب بجوشون تا نرم شه.","هویج رنده‌شده رو اضافه کن و ۲۰ دقیقه بپز.","مرغ رو ریش‌ریش کن و آخرش جعفری بزن."]},
+{n:"خوراک لوبیا",t:"bm",c:300,tm:90,m:["لوبیا","گوجه"],i:"۱ پیمانه لوبیا چیتی، ۲ گوجه، ۱ پیاز، رب، سیر",s:["لوبیا رو از شب قبل خیس کن و بپز تا نرم شه.","پیاز و رب و گوجه رو تفت بده و بریز روش.","۲۰ دقیقه بذار جا بیفته."]},
+{n:"سالاد الویه",t:"m",c:420,tm:45,m:["سیب‌زمینی","تخم‌مرغ","مرغ"],i:"۲ سیب‌زمینی، ۳ تخم‌مرغ، ۱ سینه مرغ، خیارشور، مایونز",s:["سیب‌زمینی، تخم‌مرغ و مرغ رو بپز.","همه رو ریز کن و با خیارشور و مایونز قاطی کن.","یه ساعت تو یخچال بذار و با نان سرو کن."]},
+{n:"حلیم بادمجان",t:"m",c:300,tm:45,m:["بادمجان","گوشت قرمز"],i:"۴ بادمجان، ۱۰۰ گرم گوشت پخته، ۱ پیاز، سیر، نعنا داغ",s:["بادمجان رو کبابی یا سرخ کن و له کن.","با پیاز و سیر و گوشت ریش‌ریش تفت بده.","با نعنا داغ و نان سرو کن."]},
+{n:"کشک بادمجان",t:"m",c:250,tm:40,m:["بادمجان","کشک"],i:"۴ بادمجان، ۱/۲ پیمانه کشک، پیاز داغ، سیر، گردو",s:["بادمجان رو سرخ کن.","با پیاز داغ و سیر و کشک و آب تفت بده.","با نعنا داغ و گردو سرو کن."]},
+{n:"خوراک مرغ و قارچ",t:"m",c:400,tm:45,m:["مرغ","قارچ"],i:"۲ ران مرغ، ۲۰۰ گرم قارچ، ۱ پیاز، سیر، ماست یا خامه",s:["مرغ رو با پیاز تفت بده و بپز.","قارچ رو جدا تفت بده و بریز.","ماست یا خامه بزن و ۱۰ دقیقه بذار جا بیفته."]},
+{n:"کباب تابه‌ای",t:"m",c:450,tm:35,m:["گوشت قرمز","گوجه"],i:"۲۵۰ گرم گوشت چرخ‌کرده، ۱ پیاز، ۲ گوجه، نمک، فلفل",s:["گوشت و پیاز رنده رو ورز بده.","تو تابه پهن کن و دو طرف سرخ کن.","با گوجه کبابی و نان سرو کن."]},
+{n:"شامی",t:"m",c:420,tm:60,m:["گوشت قرمز","لپه","تخم‌مرغ"],i:"۲۰۰ گرم گوشت، ۱/۲ پیمانه لپه، ۱ پیاز، ۱ تخم‌مرغ",s:["گوشت و لپه و پیاز رو بپز تا نرم بشن.","چرخ کن، تخم‌مرغ رو اضافه کن و شکل بده.","تو روغن دو طرف سرخ کن."]},
+{n:"سوپ مرغ و سبزیجات",t:"m",c:300,tm:50,m:["مرغ","هویج","سیب‌زمینی"],i:"۱ سینه مرغ، ۱ هویج، ۱ سیب‌زمینی، ۱ پیاز، جعفری",s:["مرغ و پیاز رو بجوشون.","سبزی‌ها رو خرد کن و اضافه کن و ۲۰ دقیقه بپز.","مرغ رو ریش کن و جعفری بزن."]},
+{n:"کوکو کدو",t:"m",c:280,tm:35,m:["کدو","تخم‌مرغ"],i:"۳ کدو، ۲ تخم‌مرغ، ۱ پیاز، آرد",s:["کدو رو رنده کن و آبش رو بگیر.","با تخم‌مرغ و آرد و ادویه قاطی کن.","دو طرف تو روغن سرخ کن."]},
+{n:"نان و عسل",t:"b",c:300,tm:2,m:["نان","عسل"],i:"۲ تکه نان، عسل، کره یا پنیر",s:["نان رو با کره و عسل بخور."]},
+{n:"میوه",t:"s",c:90,tm:1,m:["میوه"],i:"یه عدد میوه‌ی فصل",s:["بشور و بخور."]}
 ];
-const mk=x=>R.map((r,i)=>[r,i]).filter(([r])=>[...x].some(c=>r.t.includes(c))).map(([,i])=>i);
+const mk=x=>R.map((r,i)=>[r,i]).filter(([r])=>!r.x&&[...x].some(c=>r.t.includes(c))).map(([,i])=>i);
 const ST=(()=>{try{return JSON.parse(localStorage.getItem("st"))||{}}catch(e){return{}}})();
 const sv=()=>{try{localStorage.setItem("st",JSON.stringify(ST))}catch(e){}};
-ST.have=ST.have||[];ST.plan=ST.plan||null;ST.tg=ST.tg||0;
+ST.have=ST.have||[];ST.plan=ST.plan||null;ST.tg=ST.tg||0;ST.cx=ST.cx||[];ST.fav=ST.fav||[];ST.my=ST.my||[];ST.my.forEach(r=>R.push(r));
 
 // ---- fridge
-$('#ings').innerHTML=Object.entries(IG).map(([g,a])=>`<div class="g"><b>${g}</b>${a.map(x=>`<span class="chip" data-i="${x}">${x}</span>`).join('')}</div>`).join('');
-document.querySelectorAll('.chip').forEach(e=>{if(ST.have.includes(e.dataset.i))e.classList.add('on');e.onclick=()=>{e.classList.toggle('on');ST.have=[...document.querySelectorAll('.chip.on')].map(x=>x.dataset.i);sv();show()}});
-const card=(r,tag)=>`<div class="card"><b>${r.n}</b> ${tag||''}<div class="sm">⏱ ${f(r.tm)} دقیقه · 🔥 حدود ${f(r.c)} کالری</div><details><summary>طرز تهیه (برای ۲ نفر)</summary><p><b>مواد:</b> ${r.i}</p><ol>${r.s.map(s=>`<li>${s}</li>`).join('')}</ol></details></div>`;
-function match(){const H=new Set(ST.have);return R.filter(r=>r.t!='s').map(r=>({r,mi:r.m.filter(x=>!H.has(x))})).filter(o=>o.mi.length<=1).sort((a,b)=>a.mi.length-b.mi.length)}
+const nz=s=>String(s).replace(/[\u200c\s]/g,'').replace(/ي/g,'ی').replace(/ك/g,'ک');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const chipH=(x,c)=>`<span class="chip${ST.have.some(h=>nz(h)==nz(x))?' on':''}" data-i="${esc(x)}">${esc(x)}${c?` <b data-rm="${esc(x)}">×</b>`:''}</span>`;
+function ings(){const known=new Set(Object.values(IG).flat().map(nz)),cx=ST.cx.filter(x=>!known.has(nz(x)));
+$('#ings').innerHTML=Object.entries(IG).map(([g,a])=>`<div class="g"><b>${g}</b>${a.map(x=>chipH(x)).join('')}</div>`).join('')+(cx.length?`<div class="g"><b>اضافه‌شده توسط خودم</b>${cx.map(x=>chipH(x,1)).join('')}</div>`:'');
+$('#dl').innerHTML=[...new Set([...Object.values(IG).flat(),...ST.cx,...R.flatMap(r=>r.m)])].map(x=>`<option value="${esc(x)}">`).join('')}
+ings();
+$('#ings').onclick=e=>{const rm=e.target.closest('[data-rm]');if(rm){const n=nz(rm.dataset.rm);ST.cx=ST.cx.filter(x=>nz(x)!=n);ST.have=ST.have.filter(x=>nz(x)!=n);sv();ings();show();return}
+const c=e.target.closest('.chip');if(!c)return;const n=nz(c.dataset.i),h=ST.have.some(x=>nz(x)==n);ST.have=h?ST.have.filter(x=>nz(x)!=n):[...ST.have,c.dataset.i];sv();c.classList.toggle('on');show()};
+
+const card=(r,tag)=>`<div class="card"><b>${esc(r.n)}</b> ${tag||''}<span style="float:left"><span data-fav="${esc(r.n)}" style="cursor:pointer;font-size:1.2rem">${ST.fav.includes(r.n)?'❤️':'🤍'}</span>${r.my?` <span data-del="${esc(r.n)}" style="cursor:pointer" title="حذف">🗑️</span>`:''}</span><div class="sm">⏱ ${f(r.tm)} دقیقه · 🔥 حدود ${f(r.c)} کالری</div><details><summary>طرز تهیه (برای ۲ نفر)</summary><p><b>مواد:</b> ${esc(r.i)}</p><ol>${r.s.map(s=>`<li>${esc(s)}</li>`).join('')}</ol></details></div>`;
+function match(){const H=new Set(ST.have.map(nz));return R.filter(r=>!r.x&&r.t!='s').map(r=>({r,mi:r.m.filter(x=>!H.has(nz(x)))})).filter(o=>o.mi.length<=1).sort((a,b)=>a.mi.length-b.mi.length)}
 function show(){const m=match();$('#res').innerHTML=!ST.have.length?'<p class="sm">اول چیزایی که داری رو انتخاب کن 👆</p>':m.length?m.map(o=>card(o.r,o.mi.length?`<span class="tag w">فقط ${o.mi[0]} کم داری</span>`:'<span class="tag">همه‌ی مواد هست ✓</span>')).join(''):'<p class="sm">با این مواد غذایی پیدا نشد؛ چند تا مورد دیگه هم اضافه کن.</p>'}
-$('#clr').onclick=()=>{document.querySelectorAll('.chip.on').forEach(e=>e.click())};
+$('#clr').onclick=()=>{ST.have=[];sv();ings();show()};
 $('#rnd').onclick=()=>{const m=match().filter(o=>!o.mi.length);if(!m.length){alert('اول چند تا ماده انتخاب کن 😊');return}const o=m[Math.random()*m.length|0];$('#res').innerHTML=card(o.r,'<span class="tag">پیشنهاد امروز 🎲</span>');$('#res').querySelector('details').open=true}
 show();
+
+// ---- extras
+const toast=m=>{let t=$('#ts');if(!t){t=document.createElement('div');t.id='ts';t.style.cssText='position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ac);color:#fff;padding:10px 18px;border-radius:12px;z-index:9;max-width:90%;text-align:center';document.body.appendChild(t)}t.textContent=m;t.style.display='block';clearTimeout(t.k);t.k=setTimeout(()=>t.style.display='none',4000)};
+function addI(raw){const x=raw.trim();if(!x)return;if(!ST.cx.some(c=>nz(c)==nz(x)))ST.cx.push(x);if(!ST.have.some(c=>nz(c)==nz(x)))ST.have.push(x);sv();ings();show();if(!R.some(r=>!r.x&&r.m.some(m=>nz(m)==nz(x))))toast('هنوز غذایی با «'+x+'» تو لیستم نیست؛ از بخش «غذای خودم رو اضافه کنم» می‌تونی یکی بسازی')}
+$('#na').onclick=()=>{addI($('#ni').value);$('#ni').value=''};$('#ni').onkeydown=e=>{if(e.key=='Enter')$('#na').click()};
+let MF='all';const FL=[['all','همه'],['b','صبحانه'],['m','ناهار و شام'],['s','میان‌وعده'],['fav','❤️ علاقه‌مندی‌ها']];
+function menu(){$('#fl').innerHTML=FL.map(([k,l])=>`<span class="chip${k==MF?' on':''}" data-f="${k}">${l}</span>`).join('');
+const q=nz($('#q').value),L=R.filter(r=>!r.x&&(MF=='all'||(MF=='fav'?ST.fav.includes(r.n):r.t.includes(MF)))&&(!q||nz(r.n+r.m.join('')).includes(q)));
+$('#all').innerHTML=L.length?L.map(r=>card(r)).join(''):'<p class="sm">چیزی پیدا نشد 🤷</p>'}
+$('#fl').onclick=e=>{const c=e.target.closest('[data-f]');if(c){MF=c.dataset.f;menu()}};$('#q').oninput=menu;menu();
+document.addEventListener('click',e=>{const fv=e.target.closest('[data-fav]'),dl=e.target.closest('[data-del]');
+if(fv){const n=fv.dataset.fav;ST.fav=ST.fav.includes(n)?ST.fav.filter(x=>x!=n):[...ST.fav,n];sv();fv.textContent=ST.fav.includes(n)?'❤️':'🤍';if(MF=='fav')menu()}
+if(dl&&confirm('این غذا حذف بشه؟')){const r=R.find(x=>x.my&&!x.x&&x.n==dl.dataset.del);if(r){r.x=1;if(ST.plan){ST.plan=ST.plan.map(d=>d.map((id,k)=>R[id].x?sh(mk(T[k]))[0]:id));draw()}sv();menu();show();ings()}}});
+$('#ma').onclick=()=>{const n=$('#mn').value.trim(),m=$('#mi').value.split(/[,،]/).map(x=>x.trim()).filter(Boolean);
+if(!n||!m.length){alert('اسم غذا و حداقل یه ماده‌ی اصلی لازمه');return}
+if(R.some(r=>!r.x&&nz(r.n)==nz(n))){alert('غذایی با این اسم از قبل هست');return}
+const r={n,t:$('#mt').value,c:Math.min(2000,Math.max(50,+$('#mc').value||400)),tm:+$('#mm').value||30,m,i:$('#mq').value.trim()||m.join('، '),s:$('#ms').value.split('\n').map(x=>x.trim()).filter(Boolean),my:1};
+if(!r.s.length)r.s=['طرز تهیه‌ای ننوشتی؛ خودت می‌دونی چطور 😉'];
+R.push(r);ST.my.push(r);const kn=Object.values(IG).flat();m.forEach(x=>{if(!ST.cx.some(c=>nz(c)==nz(x))&&!kn.some(c=>nz(c)==nz(x)))ST.cx.push(x)});
+sv();ings();menu();show();['mn','mi','mq','ms','mc','mm'].forEach(i=>$('#'+i).value='');toast('غذات ذخیره شد ✓')};
+$('#ex').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(ST)],{type:'application/json'}));a.download='today-menu-backup.json';a.click()};
+$('#im').onchange=e=>{const fl=e.target.files[0];if(!fl)return;const rd=new FileReader();rd.onload=()=>{try{const d=JSON.parse(rd.result);if(!d||typeof d!='object'||Array.isArray(d))throw 0;localStorage.setItem('st',JSON.stringify(d));location.reload()}catch(x){alert('این فایل پشتیبان درست نیست')}};rd.readAsText(fl)};
 
 // ---- plan
 const D=["شنبه","یکشنبه","دوشنبه","سه‌شنبه","چهارشنبه","پنجشنبه","جمعه"],SL=["صبحانه","ناهار","شام","میان‌وعده"],SH=[.25,.35,.28,.12],T=["b","m","m","s"];
@@ -137,7 +204,7 @@ ST.bmi=bmi.toFixed(1);ST.bmr=Math.round(b);ST.tg=Math.round(t/10)*10;return true
 function draw(){if(!ST.plan)return;$('#sh').style.display='';
 $('#kc').innerHTML=`<div class="card" style="font-size:1.05rem">متابولیسم پایه‌ات حدود <b>${f(ST.bmr)}</b> کالری و هدف روزانه‌ات حدود <b style="color:var(--ac)">${f(ST.tg)}</b> کالریه.${ST.bmi?` (شاخص توده بدنی: ${f(ST.bmi)})`:''}${ST.note?`<div class="sm" style="margin-top:6px">⚠️ ${ST.note}</div>`:''}</div>`;
 $('#wk').innerHTML=ST.plan.map((day,d)=>{let tot=0;const rows=day.map((id,k)=>{const r=R[id],p=Math.min(2,Math.max(.5,Math.round(ST.tg*SH[k]/r.c*4)/4));tot+=p*r.c;
-return `<div class="m">${SL[k]}<select data-d="${d}" data-k="${k}">${mk(T[k]).map(i=>`<option value="${i}" ${i==id?'selected':''}>${R[i].n}</option>`).join('')}</select>${f(p)} پرس · ${f(Math.round(p*r.c))} کالری</div>`}).join('');
+return `<div class="m">${SL[k]}<select data-d="${d}" data-k="${k}">${mk(T[k]).map(i=>`<option value="${i}" ${i==id?'selected':''}>${esc(R[i].n)}</option>`).join('')}</select>${f(p)} پرس · ${f(Math.round(p*r.c))} کالری</div>`}).join('');
 return `<div class="card"><b>${D[d]}</b>${rows}<div class="m" style="border-top:1px solid var(--br);padding-top:6px">جمع روز: <b style="color:var(--ac)">${f(Math.round(tot))}</b> کالری</div><div class="m">+ سالاد یا سبزی تازه، ۲ تا ۳ واحد میوه و آب کافی</div></div>`}).join('');
 document.querySelectorAll('#wk select').forEach(s=>s.onchange=()=>{ST.plan[s.dataset.d][s.dataset.k]=+s.value;sv();draw()})}
 $('#mk').onclick=()=>{if(calc()){ST.plan=gen();sv();draw()}};
