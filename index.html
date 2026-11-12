@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>امروز چی بپزم؟</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff7ec;--fg:#3b2418;--card:#ffffffd9;--ac:#d9480f;--mut:#8a6a58;--br:#f0d9c2;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1a110c;--fg:#fbeee0;--card:#2a1c14d9;--ac:#ff8a4c;--mut:#c4a48e;--br:#4a3224;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1a110c;--fg:#fbeee0;--card:#2a1c14d9;--ac:#ff8a4c;--mut:#c4a48e;--br:#4a3224;color-scheme:dark}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:Vazirmatn,Tahoma,sans-serif;line-height:1.9}
+#c{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+main{position:relative;z-index:1}
+section{min-height:100vh;padding:72px 18px;max-width:980px;margin:auto}
+.hero{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+h1{font-size:clamp(2.4rem,9vw,5rem);margin:0;font-weight:900;line-height:1.3}
+h1 span{color:var(--ac)}
+h2{font-size:1.9rem;margin:0 0 6px}
+p.s{color:var(--mut);margin:0 0 22px}
+.btn{background:var(--ac);color:#fff;border:0;border-radius:14px;padding:12px 26px;font:inherit;font-weight:700;cursor:pointer;margin:6px;text-decoration:none;display:inline-block}
+.btn.o{background:transparent;color:var(--ac);border:2px solid var(--ac)}
+.card{background:var(--card);border:1px solid var(--br);border-radius:18px;padding:18px;backdrop-filter:blur(8px)}
+.g{margin-bottom:14px}.g b{display:block;margin-bottom:4px}
+.chip{display:inline-block;border:1px solid var(--br);background:var(--card);border-radius:99px;padding:3px 14px;margin:3px;cursor:pointer;user-select:none}
+.chip.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.res{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;margin-top:16px}
+.tag{font-size:.8rem;border-radius:8px;padding:1px 9px;background:#2f9e4422;color:#2f9e44}.tag.w{background:#f0820022;color:#e8590c}
+details summary{cursor:pointer;color:var(--ac);font-weight:700}
+ol{padding-right:20px;margin:6px 0}
+.f{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+input,select{width:100%;font:inherit;padding:9px;border-radius:10px;border:1px solid var(--br);background:var(--bg);color:var(--fg)}
+.days{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:16px}
+.m{font-size:.82rem;color:var(--mut);margin-top:6px}.m select{margin-top:2px}
+.sm{font-size:.8rem;color:var(--mut)}
+.rv{opacity:0;transform:translateY(40px);transition:.8s}.rv.in{opacity:1;transform:none}
+footer{text-align:center;color:var(--mut);padding:30px 18px 60px;position:relative;z-index:1;font-size:.85rem}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<main>
+<section class="hero">
+  <h1>امروز <span>چی بپزم؟</span></h1>
+  <p class="s" style="font-size:1.2rem;max-width:520px">دیگه لازم نیست هر روز از خودت بپرسی ناهار چی داریم! ببین تو یخچال چی داری، بقیه‌اش با ما.</p>
+  <div><a class="btn" href="#fridge">یخچالو نگاه کن 🧊</a><a class="btn o" href="#plan">برنامه غذایی من 📅</a></div>
+  <p class="sm" style="margin-top:40px">⬇ اسکرول کن</p>
+</section>
+
+<section id="fridge" class="rv">
+  <h2>تو یخچال و کابینت چی داری؟</h2>
+  <p class="s">هر چی داری رو بزن تا غذاهایی که می‌شه باهاش پخت بیاد. (پیاز، رب، روغن، نمک و ادویه رو همیشه داری حساب کردیم.)</p>
+  <div id="ings" class="card"></div>
+  <div style="margin:12px 0"><button class="btn" id="rnd">🎲 یه چیزی پیشنهاد بده</button><button class="btn o" id="clr">پاک کردن همه</button></div>
+  <div id="res" class="res"></div>
+</section>
+
+<section id="plan" class="rv">
+  <h2>برنامه غذایی هفتگی</h2>
+  <p class="s">مشخصاتتو بده تا کالری لازمت حساب بشه و یه برنامه برات بچینیم. هر وعده‌ای رو دوست نداشتی، خودت عوضش کن.</p>
+  <div class="card">
+    <div class="f">
+      <div class="g"><b>جنسیت</b><select id="sx"><option value="f">خانم</option><option value="m">آقا</option></select></div>
+      <div class="g"><b>سن</b><input id="age" type="number" value="35" min="18" max="70"></div>
+      <div class="g"><b>قد (سانتی‌متر)</b><input id="ht" type="number" value="165"></div>
+      <div class="g"><b>وزن (کیلو)</b><input id="wt" type="number" value="65"></div>
+      <div class="g"><b>تحرک روزانه</b><select id="act"><option value="1.2">کم (پشت میز، کم راه می‌رم)</option><option value="1.375" selected>متوسط (کار خونه، پیاده‌روی)</option><option value="1.55">زیاد (ورزش منظم)</option></select></div>
+      <div class="g"><b>هدف</b><select id="gl"><option value="l">کم کردن وزن (آروم و اصولی)</option><option value="k" selected>حفظ وزن</option><option value="g">زیاد کردن وزن (آروم)</option></select></div>
+    </div>
+    <label style="display:block;margin:6px 0"><input type="checkbox" id="hc" style="width:auto"> حامله یا شیرده‌ام، بیماری (مثل دیابت، کلیه، قلب، کبد) دارم، سابقه‌ی اختلال خوردن دارم یا پزشک برام رژیم نوشته</label>
+    <button class="btn" id="mk">بچین برام 🍽️</button>
+    <div id="kc" style="margin-top:12px"></div>
+    <p class="sm">⚠️ کالری با فرمول معروف Mifflin-St Jeor تخمین زده می‌شه و کالری غذاها هم تقریبیه. برای کم کردن وزن، حداکثر حدود ۱۵٪ (و نهایتاً ۵۰۰ کالری) کمتر از نیازت در نظر گرفته می‌شه و هیچ‌وقت کمتر از ۱٬۲۰۰ (خانم‌ها) و ۱٬۵۰۰ (آقایون) نمیاد. این برنامه جای نظر پزشک یا متخصص تغذیه نیست. اگه بیماری خاصی داری، قبل از شروع حتماً باهاش مشورت کن و بعد از ۲ تا ۳ هفته با توجه به وزنت برنامه رو اصلاح کن.</p>
+  </div>
+  <div id="wk" class="days"></div>
+  <button class="btn o" id="sh" style="display:none">🔀 یه برنامه جدید بچین</button>
+</section>
+</main>
+<footer>ساخته‌شده با ❤️ برای همه‌ی خونه‌هایی که هر روز می‌پرسن «ناهار چی داریم؟»</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const $=s=>document.querySelector(s),f=n=>Number(n).toLocaleString('fa-IR');
+const IG={"گوشت و پروتئین":["گوشت قرمز","مرغ","ماهی","تخم‌مرغ"],"حبوبات و غلات":["برنج","عدس","لوبیا","نخود","لپه","ماکارونی"],"سبزیجات":["سیب‌زمینی","گوجه","بادمجان","کدو","سبزی","لوبیا سبز"],"لبنیات و بقیه":["ماست","پنیر","نان","گردو"]};
+// t: b=صبحانه m=ناهار/شام s=میان‌وعده | c=کالری هر پرس | m=مواد اصلی لازم
+const R=[
+{n:"املت",t:"bm",c:300,tm:10,m:["تخم‌مرغ","گوجه"],i:"۴ تخم‌مرغ، ۳ گوجه، ۱ پیاز کوچک، روغن، نمک و فلفل",s:["پیاز رو خلالی کن و تو روغن تفت بده.","گوجه‌ها رو ریز کن و بریز، تا آب‌شون کشیده بشه.","تخم‌مرغ‌ها رو بشکن روش، بذار ببنده یا هم بزن."]},
+{n:"نیمرو و نان و پنیر",t:"b",c:350,tm:5,m:["تخم‌مرغ","نان","پنیر"],i:"۲ تخم‌مرغ، ۲ تکه نان، پنیر، گوجه و خیار",s:["نیمرو رو تو ماهیتابه با کمی کره درست کن.","با نان، پنیر و سبزی کنار هم سرو کن."]},
+{n:"نان و پنیر و گردو",t:"b",c:300,tm:3,m:["نان","پنیر","گردو"],i:"۲ تکه نان، پنیر، گردو، سبزی خوردن",s:["همه رو کنار هم بچین و با چای بخور!"]},
+{n:"کوکو سبزی",t:"m",c:330,tm:35,m:["سبزی","تخم‌مرغ"],i:"۴ تخم‌مرغ، سبزی کوکو (۲ دسته)، ۱ قاشق آرد، کمی زردچوبه، نمک، گردو و زرشک",s:["سبزی رو ریز کن و با تخم‌مرغ، آرد و ادویه مخلوط کن.","تو ماهیتابه‌ی روغنی بریز و روش رو بپوشون.","۱۰ دقیقه که شد برش بزن و برگردون، تا دو طرفش طلایی بشه."]},
+{n:"کوکو سیب‌زمینی",t:"m",c:320,tm:30,m:["سیب‌زمینی","تخم‌مرغ"],i:"۳ سیب‌زمینی متوسط، ۲ تخم‌مرغ، ۱ پیاز، زردچوبه، نمک",s:["سیب‌زمینی‌ها رو آب‌پز و له کن.","پیاز رنده‌شده، تخم‌مرغ و ادویه رو قاطی کن.","قالب‌شون بزن و تو روغن دو طرف سرخ کن."]},
+{n:"میرزاقاسمی",t:"m",c:280,tm:40,m:["بادمجان","گوجه","تخم‌مرغ"],i:"۴ بادمجان، ۳ گوجه، ۴ حبه سیر، ۲ تخم‌مرغ، زردچوبه، نمک",s:["بادمجان‌ها رو رو شعله کباب کن، پوست بگیر و له کن.","سیر رو تفت بده، گوجه رنده‌شده رو اضافه کن.","بادمجان رو بریز، بذار جا بیفته، آخرش تخم‌مرغ رو بزن و هم بزن."]},
+{n:"عدسی",t:"bm",c:290,tm:35,m:["عدس","سیب‌زمینی"],i:"۱ پیمانه عدس، ۱ سیب‌زمینی، ۱ پیاز، زردچوبه، نمک، پیاز داغ",s:["عدس رو با سیب‌زمینی خرد و زردچوبه تو آب بجوشون.","وقتی نرم شد، نمک بزن.","با نان و پیاز داغ و کمی لیمو سرو کن."]},
+{n:"عدس‌پلو",t:"m",c:520,tm:60,m:["عدس","برنج"],i:"۱ پیمانه برنج، ۱/۲ پیمانه عدس، ۱ پیاز، زعفران، خرما و کشمش",s:["عدس رو نیم‌پز کن و برنج رو آبکش کن.","ته دیگ بریز، لایه لایه برنج و عدس بچین.","دمش کن (۴۵ دقیقه) و با پیاز داغ و کشمش سرو کن."]},
+{n:"قیمه",t:"m",c:560,tm:90,m:["گوشت قرمز","لپه","برنج"],i:"۲۰۰ گرم گوشت خورشتی، ۱/۲ پیمانه لپه، ۱ پیاز، رب، لیمو عمانی، سیب‌زمینی سرخ‌کرده",s:["پیاز و گوشت رو تفت بده، رب و زردچوبه رو اضافه کن.","آب بریز و لپه نیم‌پز رو بریز، ۱ ساعت آروم بپز.","لیمو عمانی رو آخر بزن و با برنج و سیب‌زمینی سرو کن."]},
+{n:"قورمه‌سبزی",t:"m",c:580,tm:120,m:["گوشت قرمز","سبزی","لوبیا","برنج"],i:"۲۰۰ گرم گوشت، ۲ پیمانه سبزی خورش، ۱/۴ پیمانه لوبیا قرمز، ۲ لیمو عمانی",s:["سبزی رو ریز کن و تو روغن خوب تفت بده تا تیره بشه.","گوشت و لوبیا نیم‌پز رو با آب بریز و ۱.۵ ساعت بپز.","سبزی تفت‌داده رو اضافه کن و لیمو عمانی بزن؛ با برنج سرو کن."]},
+{n:"آبگوشت",t:"m",c:480,tm:150,m:["گوشت قرمز","نخود","سیب‌زمینی"],i:"۲۰۰ گرم گوشت، ۱/۲ پیمانه نخود، ۱ سیب‌زمینی، ۱ گوجه، ۱ پیاز، لیمو عمانی",s:["گوشت، نخود و پیاز رو با زردچوبه تو آب بذار بجوشه.","بعد از ۱.۵ ساعت سیب‌زمینی و گوجه رو اضافه کن.","آبش رو جدا کن و گوشت رو بکوب، با نان و سبزی بخور."]},
+{n:"زرشک‌پلو با مرغ",t:"m",c:600,tm:75,m:["مرغ","برنج"],i:"۲ ران مرغ، ۱ پیمانه برنج، ۱ پیاز، زعفران، زرشک، شکر",s:["مرغ رو با پیاز و زعفران بپز تا آب‌ش جمع بشه.","برنج رو آبکش و دم کن.","زرشک رو با کمی شکر تفت بده و روی پلو بریز."]},
+{n:"خوراک مرغ و سیب‌زمینی",t:"m",c:430,tm:50,m:["مرغ","سیب‌زمینی"],i:"۲ ران مرغ، ۲ سیب‌زمینی، ۱ پیاز، رب، زردچوبه",s:["مرغ و پیاز رو تفت بده، رب بزن.","سیب‌زمینی تکه‌شده و آب بریز.","نیم‌ساعت با حرارت ملایم بپز تا جا بیفته."]},
+{n:"لوبیاپلو",t:"m",c:560,tm:80,m:["لوبیا سبز","گوشت قرمز","برنج"],i:"۲۰۰ گرم گوشت چرخ‌کرده یا تکه‌ای، ۲۰۰ گرم لوبیا سبز، رب، دارچین، ۱ پیمانه برنج",s:["گوشت و پیاز رو تفت بده، لوبیا خرد‌شده و رب رو اضافه کن.","با کمی آب بپز و بعد برنج آبکش‌شده رو روش بریز.","دم کن (۴۰ دقیقه) و با ماست سرو کن."]},
+{n:"ماکارونی",t:"m",c:520,tm:40,m:["ماکارونی","گوشت قرمز"],i:"۲۵۰ گرم ماکارونی، ۱۵۰ گرم گوشت چرخ‌کرده، ۱ پیاز، رب، سیر",s:["ماکارونی رو آبکش کن.","گوشت، پیاز، سیر و رب رو تفت بده برای سس.","با هم قاطی کن و ۱۰ دقیقه دم بذار."]},
+{n:"ماهی سرخ‌شده با پلو",t:"m",c:540,tm:45,m:["ماهی","برنج"],i:"۲ فیله ماهی، ۱ پیمانه برنج، آرد، زردچوبه، لیمو",s:["ماهی رو با نمک و زردچوبه ادویه بزن، تو آرد بغلتون.","تو روغن داغ هر طرف ۴ دقیقه سرخ کن.","با پلو، سبزی و لیمو سرو کن."]},
+{n:"کتلت",t:"m",c:400,tm:45,m:["گوشت قرمز","سیب‌زمینی","تخم‌مرغ"],i:"۲۵۰ گرم گوشت چرخ‌کرده، ۱ سیب‌زمینی آب‌پز، ۱ پیاز، ۱ تخم‌مرغ، ادویه",s:["همه رو ورز بده تا چسبناک بشه.","شکل کتلت بده و تو روغن دو طرف سرخ کن.","با نان و ترشی یا گوجه سرو کن."]},
+{n:"خوراک کدو",t:"m",c:260,tm:30,m:["کدو","گوجه"],i:"۳ کدو سبز، ۲ گوجه، ۱ پیاز، سیر، زردچوبه",s:["پیاز و سیر رو تفت بده، کدو حلقه‌ای بریز.","گوجه رو اضافه کن و درِ ماهیتابه رو بذار.","۱۵ دقیقه آروم بپز."]},
+{n:"ته‌چین مرغ",t:"m",c:640,tm:120,m:["مرغ","برنج","ماست","تخم‌مرغ"],i:"۲۰۰ گرم مرغ، ۱ پیمانه برنج، ۱ پیمانه ماست، ۲ تخم‌مرغ، زعفران",s:["مرغ رو بپز و ریش‌ریش کن.","برنج رو با ماست، تخم‌مرغ و زعفران مخلوط کن.","لایه لایه تو قالب بچین و ۱.۵ ساعت تو فر ۱۸۰ بپز."]},
+{n:"ماست و خیار",t:"s",c:110,tm:3,m:["ماست"],i:"۱ کاسه ماست و خیار خرد‌شده",s:["قاطی کن و بخور."]},
+{n:"مغزجات و میوه",t:"s",c:180,tm:2,m:["گردو"],i:"یه مشت گردو و یه میوه",s:["بخور و لذت ببر."]}
+];
+const mk=x=>R.map((r,i)=>[r,i]).filter(([r])=>[...x].some(c=>r.t.includes(c))).map(([,i])=>i);
+const ST=(()=>{try{return JSON.parse(localStorage.getItem("st"))||{}}catch(e){return{}}})();
+const sv=()=>{try{localStorage.setItem("st",JSON.stringify(ST))}catch(e){}};
+ST.have=ST.have||[];ST.plan=ST.plan||null;ST.tg=ST.tg||0;
+
+// ---- fridge
+$('#ings').innerHTML=Object.entries(IG).map(([g,a])=>`<div class="g"><b>${g}</b>${a.map(x=>`<span class="chip" data-i="${x}">${x}</span>`).join('')}</div>`).join('');
+document.querySelectorAll('.chip').forEach(e=>{if(ST.have.includes(e.dataset.i))e.classList.add('on');e.onclick=()=>{e.classList.toggle('on');ST.have=[...document.querySelectorAll('.chip.on')].map(x=>x.dataset.i);sv();show()}});
+const card=(r,tag)=>`<div class="card"><b>${r.n}</b> ${tag||''}<div class="sm">⏱ ${f(r.tm)} دقیقه · 🔥 حدود ${f(r.c)} کالری</div><details><summary>طرز تهیه (برای ۲ نفر)</summary><p><b>مواد:</b> ${r.i}</p><ol>${r.s.map(s=>`<li>${s}</li>`).join('')}</ol></details></div>`;
+function match(){const H=new Set(ST.have);return R.filter(r=>r.t!='s').map(r=>({r,mi:r.m.filter(x=>!H.has(x))})).filter(o=>o.mi.length<=1).sort((a,b)=>a.mi.length-b.mi.length)}
+function show(){const m=match();$('#res').innerHTML=!ST.have.length?'<p class="sm">اول چیزایی که داری رو انتخاب کن 👆</p>':m.length?m.map(o=>card(o.r,o.mi.length?`<span class="tag w">فقط ${o.mi[0]} کم داری</span>`:'<span class="tag">همه‌ی مواد هست ✓</span>')).join(''):'<p class="sm">با این مواد غذایی پیدا نشد؛ چند تا مورد دیگه هم اضافه کن.</p>'}
+$('#clr').onclick=()=>{document.querySelectorAll('.chip.on').forEach(e=>e.click())};
+$('#rnd').onclick=()=>{const m=match().filter(o=>!o.mi.length);if(!m.length){alert('اول چند تا ماده انتخاب کن 😊');return}const o=m[Math.random()*m.length|0];$('#res').innerHTML=card(o.r,'<span class="tag">پیشنهاد امروز 🎲</span>');$('#res').querySelector('details').open=true}
+show();
+
+// ---- plan
+const D=["شنبه","یکشنبه","دوشنبه","سه‌شنبه","چهارشنبه","پنجشنبه","جمعه"],SL=["صبحانه","ناهار","شام","میان‌وعده"],SH=[.25,.35,.28,.12],T=["b","m","m","s"];
+const sh=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+function gen(){const P=[],pool=T.map(t=>mk(t)),q=pool.map(sh),rice=i=>R[i].m.includes("برنج");for(let d=0;d<7;d++){const pk=k=>{if(!q[k].length)q[k]=sh(pool[k]);return q[k].pop()};const b=pk(0),l=pk(1);let n=pk(2),g=0;while((n==l||(rice(l)&&rice(n)))&&g++<20)n=pk(2);P.push([b,l,n,pk(3)])}return P}
+function calc(){const a=+$('#age').value,h=+$('#ht').value,w=+$('#wt').value;if($('#hc').checked){$('#kc').innerHTML='<div class="card">با توجه به شرایطی که انتخاب کردی، یه برنامه‌ی عمومی مناسب نیست. لطفاً با پزشک یا متخصص تغذیه مشورت کن تا برنامه‌ی مخصوص خودت رو برات بنویسه 💚</div>';$('#wk').innerHTML='';$('#sh').style.display='none';ST.plan=null;sv();return false}
+if(!(a>=18&&a<=70&&h>=120&&h<=220&&w>=35&&w<=250)){alert('این برنامه برای بزرگسال‌های ۱۸ تا ۷۰ ساله‌ست و سن، قد و وزن باید معقول باشه. برای بقیه حتماً با پزشک مشورت کن.');return false}
+if(w/((h/100)**2)<16){alert('وزنت خیلی پایین‌تر از محدوده‌ی سالمه. لطفاً قبل از هر برنامه‌ای با پزشک مشورت کن.');return false}
+const b=10*w+6.25*h-5*a+($('#sx').value=='m'?5:-161);const bmi=w/((h/100)**2);let g=$('#gl').value;ST.note='';if(bmi<18.5&&g=='l'){g='k';ST.note='وزنت پایین‌تر از محدوده‌ی نرماله، برای همین برنامه رو برای حفظ وزن چیدیم. کم کردن وزن برای تو مناسب نیست و بهتره با پزشک حرف بزنی.'}
+if(bmi>=35)ST.note+=' با توجه به وزنت بهتره قبل از شروع رژیم با پزشک هم مشورت کنی.';
+const td=b*$('#act').value;let t=g=='l'?td-Math.min(500,td*.15):g=='g'?td+250:td;const fl=$('#sx').value=='m'?1500:1200;if(g=='l'&&t<fl){t=fl;ST.note+=' کالری هدف از حداقل توصیه‌شده (۱٬۲۰۰ برای خانم‌ها و ۱٬۵۰۰ برای آقایون) کمتر می‌شد، برای همین همون حداقل رو گذاشتیم.'}
+ST.bmi=bmi.toFixed(1);ST.bmr=Math.round(b);ST.tg=Math.round(t/10)*10;return true}
+function draw(){if(!ST.plan)return;$('#sh').style.display='';
+$('#kc').innerHTML=`<div class="card" style="font-size:1.05rem">متابولیسم پایه‌ات حدود <b>${f(ST.bmr)}</b> کالری و هدف روزانه‌ات حدود <b style="color:var(--ac)">${f(ST.tg)}</b> کالریه.${ST.bmi?` (شاخص توده بدنی: ${f(ST.bmi)})`:''}${ST.note?`<div class="sm" style="margin-top:6px">⚠️ ${ST.note}</div>`:''}</div>`;
+$('#wk').innerHTML=ST.plan.map((day,d)=>{let tot=0;const rows=day.map((id,k)=>{const r=R[id],p=Math.min(2,Math.max(.5,Math.round(ST.tg*SH[k]/r.c*4)/4));tot+=p*r.c;
+return `<div class="m">${SL[k]}<select data-d="${d}" data-k="${k}">${mk(T[k]).map(i=>`<option value="${i}" ${i==id?'selected':''}>${R[i].n}</option>`).join('')}</select>${f(p)} پرس · ${f(Math.round(p*r.c))} کالری</div>`}).join('');
+return `<div class="card"><b>${D[d]}</b>${rows}<div class="m" style="border-top:1px solid var(--br);padding-top:6px">جمع روز: <b style="color:var(--ac)">${f(Math.round(tot))}</b> کالری</div><div class="m">+ سالاد یا سبزی تازه، ۲ تا ۳ واحد میوه و آب کافی</div></div>`}).join('');
+document.querySelectorAll('#wk select').forEach(s=>s.onchange=()=>{ST.plan[s.dataset.d][s.dataset.k]=+s.value;sv();draw()})}
+$('#mk').onclick=()=>{if(calc()){ST.plan=gen();sv();draw()}};
+$('#sh').onclick=()=>{ST.plan=gen();sv();draw()};
+draw();
+
+// ---- reveal
+const io=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('in')),{threshold:.08});
+document.querySelectorAll('.rv').forEach(e=>io.observe(e));
+
+// ---- 3D
+try{
+const cv=$('#c'),rd=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true}),sc=new THREE.Scene(),cm=new THREE.PerspectiveCamera(55,1,.1,100);
+cm.position.z=9;rd.setPixelRatio(Math.min(devicePixelRatio,2));
+sc.add(new THREE.AmbientLight(0xffffff,.7));const L=new THREE.DirectionalLight(0xffffff,.9);L.position.set(5,8,6);sc.add(L);
+const G=new THREE.Group();sc.add(G);
+const geo=[new THREE.SphereGeometry(.8,24,24),new THREE.TorusGeometry(.8,.28,16,32),new THREE.CylinderGeometry(.9,.9,.12,32),new THREE.ConeGeometry(.6,1.3,5),new THREE.IcosahedronGeometry(.7)];
+const col=[0xe03131,0xf59f00,0x2f9e44,0xd9480f,0xfcc419,0x8a5a3c];
+for(let i=0;i<34;i++){const m=new THREE.Mesh(geo[i%5],new THREE.MeshStandardMaterial({color:col[i%6],roughness:.5}));
+m.position.set((Math.random()-.5)*20,(Math.random()-.5)*26,-Math.random()*8);m.rotation.set(Math.random()*6,Math.random()*6,0);m.userData={s:.3+Math.random()*.6,f:Math.random()*6};m.scale.setScalar(.6+Math.random()*.8);G.add(m)}
+const rs=()=>{rd.setSize(innerWidth,innerHeight,false);cm.aspect=innerWidth/innerHeight;cm.updateProjectionMatrix()};rs();addEventListener('resize',rs);
+let y=0,ty=0;addEventListener('scroll',()=>{ty=scrollY},{passive:true});
+const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+(function a(t){requestAnimationFrame(a);y+=(ty-y)*.08;G.position.y=y*.012;G.rotation.y=y*.0006;
+G.children.forEach(m=>{if(!rm){m.rotation.x+=.003*m.userData.s;m.rotation.y+=.004*m.userData.s;m.position.x+=Math.sin(t*.0005+m.userData.f)*.002}});
+cv.style.opacity=Math.max(.28,1-y/700);rd.render(sc,cm)})(0);
+}catch(e){}
+</script>
+</body>
+</html>
