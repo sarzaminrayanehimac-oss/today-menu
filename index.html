@@ -64,6 +64,13 @@ main>section.p{margin-top:calc(68px + env(safe-area-inset-top,0px))}
 .st button{width:42px;height:42px;border-radius:50%;border:1px solid var(--br);background:var(--c2);color:var(--ac);font:inherit;font-size:1.4rem;cursor:pointer}
 .pager{display:flex;justify-content:space-between;align-items:center;margin-top:14px}.pager .btn{min-height:42px;padding:6px 16px;margin:0}.pager .btn:disabled{opacity:.35}
 #wk{grid-template-columns:1fr!important}#wk>.card{display:none}#wk>.card.sel{display:block}#dt{margin-top:12px;overflow-x:auto;white-space:nowrap}
+main>section{scroll-margin-top:68px}
+#fl{display:flex;gap:2px;overflow-x:auto;white-space:nowrap;padding-bottom:4px;margin:10px 0;scrollbar-width:none}#fl::-webkit-scrollbar{display:none}#fl .chip{flex:none}
+.res .card{padding:12px}.res .card details{margin-top:2px}
+details.g>summary{font-size:1.02rem;color:var(--fg);font-weight:700;padding:6px 0;border-bottom:1px solid var(--br);margin-bottom:6px}
+input[type=checkbox]{width:22px;min-height:22px;flex:none;margin-top:7px;accent-color:var(--ac)}
+label.hc{display:flex;gap:10px;align-items:flex-start;margin:10px 0;font-size:.92rem}
+#mk{width:100%;margin:4px 0}
 </style>
 </head>
 <body>
@@ -93,7 +100,7 @@ main>section.p{margin-top:calc(68px + env(safe-area-inset-top,0px))}
   <h2>همه‌ی غذاها 📖</h2>
   <p class="s">اگه ایده نداری، یه نگاه بنداز؛ شاید با دیدنشون یادت بیاد دلت چی می‌خواد. ❤️ بزن تا تو علاقه‌مندی‌هات بمونه.</p>
   <input id="q" placeholder="جستجو: اسم غذا یا ماده‌ی اصلی (مثلاً عدس)">
-  <div id="fl" style="margin:10px 0"></div>
+  <div id="fl"></div>
   <div id="all" class="res"></div><div id="allp" class="pager"></div>
   <details class="card" style="margin-top:16px"><summary>➕ غذای خودم رو اضافه کنم</summary>
     <div class="f" style="margin-top:12px">
@@ -118,10 +125,10 @@ main>section.p{margin-top:calc(68px + env(safe-area-inset-top,0px))}
       <div class="g"><b>سن</b><input id="age" type="number" value="35" min="18" max="70"></div>
       <div class="g"><b>قد (سانتی‌متر)</b><input id="ht" type="number" value="165"></div>
       <div class="g"><b>وزن (کیلو)</b><input id="wt" type="number" value="65"></div>
-      <div class="g"><b>تحرک روزانه</b><select id="act"><option value="1.2">کم (پشت میز، کم راه می‌رم)</option><option value="1.375" selected>متوسط (کار خونه، پیاده‌روی)</option><option value="1.55">زیاد (ورزش منظم)</option></select></div>
+      <div class="g"><b>تحرک روزانه</b><select id="act"><option value="1.2">کم</option><option value="1.375" selected>متوسط</option><option value="1.55">زیاد</option></select></div>
       <div class="g"><b>هدف</b><select id="gl"><option value="l">کم کردن وزن (آروم و اصولی)</option><option value="k" selected>حفظ وزن</option><option value="g">زیاد کردن وزن (آروم)</option></select></div>
     </div>
-    <label style="display:block;margin:6px 0"><input type="checkbox" id="hc" style="width:auto"> حامله یا شیرده‌ام، بیماری (مثل دیابت، کلیه، قلب، کبد) دارم، سابقه‌ی اختلال خوردن دارم یا پزشک برام رژیم نوشته</label>
+    <label class="hc"><input type="checkbox" id="hc" style="width:auto"> حامله یا شیرده‌ام، بیماری (مثل دیابت، کلیه، قلب، کبد) دارم، سابقه‌ی اختلال خوردن دارم یا پزشک برام رژیم نوشته</label>
     <button class="btn" id="mk">بچین برام 🍽️</button>
     <div id="kc" style="margin-top:12px"></div>
     <p class="sm">⚠️ کالری با فرمول معروف Mifflin-St Jeor تخمین زده می‌شه و کالری غذاها هم تقریبیه. برای کم کردن وزن، حداکثر حدود ۱۵٪ (و نهایتاً ۵۰۰ کالری) کمتر از نیازت در نظر گرفته می‌شه و هیچ‌وقت کمتر از ۱٬۲۰۰ (خانم‌ها) و ۱٬۵۰۰ (آقایون) نمیاد. این برنامه جای نظر پزشک یا متخصص تغذیه نیست. اگه بیماری خاصی داری، قبل از شروع حتماً باهاش مشورت کن و بعد از ۲ تا ۳ هفته با توجه به وزنت برنامه رو اصلاح کن.</p>
@@ -136,7 +143,7 @@ main>section.p{margin-top:calc(68px + env(safe-area-inset-top,0px))}
 <script src="lib/three.min.js"></script>
 <script>
 const $=s=>document.querySelector(s),f=n=>Number(n).toLocaleString('fa-IR');
-const IG={"گوشت و پروتئین":["گوشت قرمز","مرغ","ماهی","سوسیس","کالباس","ژامبون","میگو","تخم‌مرغ"],"حبوبات و غلات":["برنج","عدس","لوبیا","نخود","لپه","ماکارونی","رشته","جو","باقالی","آرد","ماش","گندم"],"سبزیجات":["سیب‌زمینی","گوجه","بادمجان","کدو","سبزی","لوبیا سبز","اسفناج","قارچ","کلم","هویج","کرفس","خیار","بامیه","کاهو","فلفل دلمه‌ای","ذرت","آلو"],"لبنیات و بقیه":["ماست","پنیر","کشک","نان","گردو","عسل","میوه","شیر","کره"]};
+const IG={"گوشت و پروتئین":["گوشت قرمز","مرغ","ماهی","سوسیس","کالباس","ژامبون","میگو","تخم‌مرغ"],"حبوبات و غلات":["برنج","عدس","لوبیا","نخود","لپه","ماکارونی","رشته","جو","باقالی","آرد","ماش","گندم"],"سبزیجات":["سیب‌زمینی","گوجه","بادمجان","کدو","سبزی","لوبیا سبز","اسفناج","قارچ","کلم","هویج","کرفس","خیار","بامیه","کاهو","فلفل دلمه‌ای","ذرت","آلو"],"لبنیات و بقیه":["ماست","پنیر","کشک","نان","گردو","عسل","میوه","شیر","کره","ارده","خرما","آلبالو"]};
 // t: b=صبحانه m=ناهار/شام s=میان‌وعده | c=کالری هر پرس | m=مواد اصلی لازم
 const R=[
 {n:"املت",t:"bm",c:300,tm:10,m:["تخم‌مرغ","گوجه"],i:"۴ تخم‌مرغ، ۳ گوجه، ۱ پیاز کوچک، روغن، نمک و فلفل",s:["پیاز رو خلالی کن و تو روغن تفت بده.","گوجه‌ها رو ریز کن و بریز، تا آب‌شون کشیده بشه.","تخم‌مرغ‌ها رو بشکن روش، بذار ببنده یا هم بزن."]},
@@ -249,6 +256,24 @@ const R=[
 سبزی‌پلو با ماهی|m|580|60|سبزی,برنج,ماهی|۱ پیمانه برنج، ۱ پیمانه سبزی پلو، ۲ فیله ماهی|برنج رو با سبزی دم کن;ماهی رو سرخ کن;با هم سرو کن|سبزی پلو ماهی|r
 آبگوشت بزباش|m|520|120|گوشت قرمز,لپه,سبزی|۲۰۰ گرم گوشت، ۱/۴ پیمانه لپه، ۱ پیمانه سبزی، ۱ پیاز، لیمو عمانی|گوشت و لپه رو بپز;سبزی تفت‌داده و لیمو رو اضافه کن و ۱ ساعت بپز|بزباش|r
 خورش مرغ و آلو|m|520|80|مرغ,آلو|۲ ران مرغ، ۱۰ عدد آلو، ۱ پیاز، زعفران|مرغ و پیاز رو تفت بده و بپز;آلو رو اضافه کن و ۳۰ دقیقه آروم بپز||r`).trim().split('\n').forEach(l=>{const[x,t,c,tm,m,i,st,a,o]=l.split('|');R.push({n:x,t,c:+c,tm:+tm,m:m.split(','),i,s:st.split(';'),a:a||'',o:o||''})});
+(`آش ارده|m|420|60|ارده,برنج|۱/۲ پیمانه برنج، ۴ قاشق غذاخوری ارده، ۱ پیاز، زردچوبه، روغن، پیاز داغ|برنج رو با پیاز و زردچوبه تو آب بپز تا له بشه;ارده رو با کمی آب حل کن و اضافه کن;هم بزن تا یکدست و غلیظ بشه و با پیاز داغ سرو کن|آش ارده دزفولی|d
+شله ارده|s|380|50|ارده,برنج|۱/۲ پیمانه برنج، ۴ قاشق ارده، ۴ قاشق شکر یا شیره خرما، دارچین|برنج رو بپز تا کاملاً له بشه;ارده و شکر رو اضافه کن;هم بزن تا غلیظ بشه و با دارچین سرو کن|شلی ارده،سیلون ارده|d
+آش ماسوا|m|320|60|ماست,برنج|۱/۴ پیمانه برنج، ۲ پیمانه ماست رقیق (دوغ)، ۱ پیاز، پونه، زردچوبه|برنج رو با زردچوبه بپز;ماست رو آروم اضافه کن و هم بزن تا جوش نیاد;با پیاز داغ و پونه سرو کن|ماسوا،ماسووا،آش دوغ دزفولی|d
+بنگو (ماست و خیار)|s|110|5|ماست,خیار|۱ پیمانه ماست، ۲ خیار، نعنا خشک، نمک|خیار رو ریز کن;با ماست و نعنا قاطی کن|بنگو|d
+اشکنه|m|300|20|تخم‌مرغ,نان|۲ تخم‌مرغ، ۲ پیاز، ۲ تکه نان، شنبلیله، زردچوبه، سیر|پیاز و سیر رو تفت بده و شنبلیله و زردچوبه بزن;آب بریز و بجوشون;تخم‌مرغ رو تو آب بشکن و بپز و روی نان بریز|اشکنه دزفولی|d
+حلوا ارده|s|350|20|ارده,آرد|۱ پیمانه آرد، ۴ قاشق ارده، ۱/۲ پیمانه شکر، روغن، گلاب|آرد رو تو روغن سرخ کن تا طلایی بشه;شربت شکر و گلاب رو اضافه کن و هم بزن;ارده رو قاطی کن و سرو کن||d
+کلوچه خرمایی|s|200|60|خرما,آرد|۱ پیمانه آرد، ۱ پیمانه خرما بی‌هسته، ۱/۲ پیمانه روغن، زیره، هل|خرما رو له کن و با روغن و ادویه مخلوط کن;آرد رو اضافه کن و خمیر کن;شکل بده و تو فر ۱۸۰ درجه ۲۰ دقیقه بپز|کلوچه دزفول|d`).trim().split('\n').forEach(l=>{const[x,t,c,tm,m,i,st,a,o]=l.split('|');R.push({n:x,t,c:+c,tm:+tm,m:m.split(','),i,s:st.split(';'),a:a||'',o:o||''})});
+(`قنبر پلو (غم‌بر پلو)|m|650|90|برنج,گوشت قرمز,سیب‌زمینی|۱ پیمانه برنج، ۲۰۰ گرم گوشت چرخ‌کرده (برای کوفته‌های ریز)، ۱ سیب‌زمینی، ۲ پیاز، کشمش، زردچوبه|گوشت رو با پیاز رنده و ادویه ورز بده و کوفته‌های ریز درست کن;پیاز داغ و کشمش رو آماده کن و کوفته‌ها رو با کمی آب و زردچوبه ۲۰ دقیقه بپز;برنج رو آبکش کن، ته قابلمه سیب‌زمینی ورقه‌ای بچین و برنج و مایه رو لایه‌لایه بریز;۴۵ دقیقه دم کن و با سالاد شیرازی سرو کن|قنبر پلو،قنبرپلو،غم بر پلو،غمبر پلو،غای قنبر پلو|q
+املت قجری|b|420|25|تخم‌مرغ,گوجه,بادمجان|۴ تخم‌مرغ، ۲ گوجه، ۱ بادمجان کبابی، ۱ پیاز، ۱ فلفل دلمه‌ای، کره|پیاز و فلفل رو با کره تفت بده;بادمجان کبابی خرد‌شده و گوجه رو اضافه کن تا جا بیفته;تخم‌مرغ‌ها رو روش بشکن و بذار ببنده|املت قاجاری|q
+قیمه نثار|m|650|120|گوشت قرمز,برنج|۲۰۰ گرم راسته گوشت، ۱ پیمانه برنج، ۲ پیاز داغ‌شده، خلال بادام و پسته، خلال پوست پرتقال، زرشک، زعفران|گوشت رو خلالی ببر و با پیاز و زعفران بپز;خلال‌ها و زرشک رو با شکر و کمی آب تفت بده;برنج رو دم کن و با گوشت و خلال‌ها و پیاز داغ لایه‌لایه بچین|قیمه نثار قزوین|q
+پلو قشقایی|m|680|90|برنج,گوشت قرمز,گردو|۱ پیمانه برنج، ۲۰۰ گرم گوشت، ۱ پیاز، کشمش، زرشک، گردو، زعفران|گوشت و پیاز رو با زعفران بپز و ریش کن;کشمش، زرشک و گردو رو تفت بده;برنج رو آبکش کن و با گوشت و خشکبار لایه‌لایه بچین و ۴۵ دقیقه دم کن|پلو مخلوط شیرازی|q
+شله زرد|s|330|90|برنج|۱/۲ پیمانه برنج، ۱ پیمانه شکر، زعفران دم‌کرده، گلاب، کره، خلال بادام|برنج رو با آب زیاد بپز تا کاملاً له بشه;شکر و زعفران رو اضافه کن و ۳۰ دقیقه آروم بپز;گلاب و کره بزن و با خلال بادام و دارچین تزیین کن||q
+آش گندم یزدی|m|480|150|گندم,گوشت قرمز|۱/۲ پیمانه گندم پوست‌کنده، ۲۰۰ گرم گوشت، ۱/۴ پیمانه نخود و لوبیا، ۱ پیاز، زردچوبه، دارچین|گندم، حبوبات و گوشت رو با پیاز و زردچوبه ۲ ساعت بپز;گوشت رو ریش کن و آش رو بکوب تا کشدار بشه;با دارچین و کمی روغن داغ سرو کن|آش گندم|q
+خورش به آلو|m|500|100|آلو,گوشت قرمز|۲۰۰ گرم گوشت، ۱ عدد به، ۸ عدد آلو، ۱ پیاز، زعفران، شکر|گوشت و پیاز رو با زردچوبه بپز;به رو تکه‌تکه سرخ کن و با آلو اضافه کن;۳۰ دقیقه آروم بپز تا ملس بشه|خورش به آلو یزدی|q
+قیمه نخود|m|540|120|گوشت قرمز,نخود|۲۰۰ گرم گوشت، ۱/۲ پیمانه نخود، ۱ پیاز، رب، لیمو عمانی، سیب‌زمینی سرخ‌کرده|گوشت و پیاز و نخود رو با زردچوبه بپز;رب و لیمو عمانی رو اضافه کن و ۳۰ دقیقه بپز;با سیب‌زمینی سرخ‌شده و برنج سرو کن|قیمه نخود یزدی|q
+آلبالو پلو|m|620|80|آلبالو,برنج,مرغ|۱ پیمانه برنج، ۲ ران مرغ، ۱ پیمانه آلبالو، ۴ قاشق شکر، زعفران|مرغ رو با پیاز و زعفران بپز;آلبالو رو با شکر روی حرارت ملایم بپز تا شیرین و ملس بشه;برنج رو دم کن و آلبالو رو لابه‌لای پلو بریز|آلبالوپلو|q
+تاس‌کباب|m|520|90|گوشت قرمز,سیب‌زمینی,هویج|۲۰۰ گرم گوشت، ۲ سیب‌زمینی، ۱ هویج، ۱ پیاز، ۱ گوجه، زردچوبه|گوشت و پیاز رو ته قابلمه بچین;هویج، سیب‌زمینی و گوجه رو روش لایه کن;ادویه و کمی آب بریز و ۱ ساعت آروم بپز||q
+ماست و موسیر|s|100|3|ماست|۱ پیمانه ماست، ۱ قاشق موسیر، نعنا خشک|همه رو قاطی کن و خنک بخور||q`).trim().split('\n').forEach(l=>{const[x,t,c,tm,m,i,st,a,o]=l.split('|');R.push({n:x,t,c:+c,tm:+tm,m:m.split(','),i,s:st.split(';'),a:a||'',o:o||''})});
 const mk=x=>R.map((r,i)=>[r,i]).filter(([r])=>!r.x&&r.o!='f'&&[...x].some(c=>r.t.includes(c))).map(([,i])=>i);
 const ST=(()=>{try{return JSON.parse(localStorage.getItem("st"))||{}}catch(e){return{}}})();
 const sv=()=>{try{localStorage.setItem("st",JSON.stringify(ST))}catch(e){}};
@@ -259,7 +284,7 @@ const kf=()=>(ST.ad+.6*ST.kd)/2,lab=()=>f(ST.ad)+' نفر'+(ST.kd?' + '+f(ST.kd)
 const fm=v=>{v=v>=50?Math.round(v/10)*10:v>=10?Math.round(v):Math.round(v*4)/4;const w=Math.floor(v),fr=['','¼','½','¾'][Math.round((v-w)*4)];return (w||!fr?f(w):'')+(w&&fr?' ':'')+fr};
 const sc=(t,k)=>k==1?t:t.replace(/([0-9۰-۹]+)\/([0-9۰-۹]+)|([0-9۰-۹]+)/g,(m,a,b,c)=>fm((a?en(a)/en(b):+en(c))*k));
 // صفحه‌بندی لیست‌ها
-const PG={};function pager(id,L,rn,key,per=8){const st=PG[id]=PG[id]||{n:0,s:''},sg=L.map(key).join('|');if(st.s!=sg){st.s=sg;st.n=0}
+const PG={};function pager(id,L,rn,key,per=6){const st=PG[id]=PG[id]||{n:0,s:''},sg=L.map(key).join('|');if(st.s!=sg){st.s=sg;st.n=0}
 const t=Math.max(1,Math.ceil(L.length/per));st.n=Math.min(st.n,t-1);$('#'+id).innerHTML=L.slice(st.n*per,st.n*per+per).map(rn).join('');
 $('#'+id+'p').innerHTML=t>1?`<button class="btn o" data-pg="${id}" data-d="-1" ${st.n?'':'disabled'}>→ قبلی</button><span class="sm">${f(st.n+1)} از ${f(t)}</span><button class="btn o" data-pg="${id}" data-d="1" ${st.n<t-1?'':'disabled'}>بعدی ←</button>`:''}
 
@@ -270,13 +295,13 @@ const nz=s=>{const k=nz0(s);return AL[k]||k};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const chipH=(x,c)=>`<span class="chip${ST.have.some(h=>nz(h)==nz(x))?' on':''}" data-i="${esc(x)}">${esc(x)}${c?` <b data-rm="${esc(x)}">×</b>`:''}</span>`;
 function ings(){const known=new Set(Object.values(IG).flat().map(nz)),cx=ST.cx.filter(x=>!known.has(nz(x)));
-$('#ings').innerHTML=Object.entries(IG).map(([g,a])=>`<div class="g"><b>${g}</b>${a.map(x=>chipH(x)).join('')}</div>`).join('')+(cx.length?`<div class="g"><b>اضافه‌شده توسط خودم</b>${cx.map(x=>chipH(x,1)).join('')}</div>`:'');
+$('#ings').innerHTML=Object.entries(IG).map(([g,a])=>`<details class="g" ${g==Object.keys(IG)[0]?'open':''}><summary>${g}</summary>${a.map(x=>chipH(x)).join('')}</details>`).join('')+(cx.length?`<div class="g"><b>اضافه‌شده توسط خودم</b>${cx.map(x=>chipH(x,1)).join('')}</div>`:'');
 $('#dl').innerHTML=[...new Set([...Object.values(IG).flat(),...ST.cx,...R.flatMap(r=>r.m)])].map(x=>`<option value="${esc(x)}">`).join('')}
 ings();
 $('#ings').onclick=e=>{const rm=e.target.closest('[data-rm]');if(rm){const n=nz(rm.dataset.rm);ST.cx=ST.cx.filter(x=>nz(x)!=n);ST.have=ST.have.filter(x=>nz(x)!=n);sv();ings();show();return}
 const c=e.target.closest('.chip');if(!c)return;const n=nz(c.dataset.i),h=ST.have.some(x=>nz(x)==n);ST.have=h?ST.have.filter(x=>nz(x)!=n):[...ST.have,c.dataset.i];sv();c.classList.toggle('on');show()};
 
-const card=(r,tag)=>`<div class="card"><b>${esc(r.n)}</b> ${r.o=='r'?'<span class="tag">🍽️ رستورانی</span>':r.o=='f'?'<span class="tag w">🍔 فست‌فود</span>':''} ${tag||''}<span style="float:left"><span data-fav="${esc(r.n)}" style="cursor:pointer;font-size:1.2rem">${ST.fav.includes(r.n)?'❤️':'🤍'}</span>${r.my?` <span data-del="${esc(r.n)}" style="cursor:pointer" title="حذف">🗑️</span>`:''}</span><div class="sm">⏱ ${f(r.tm)} دقیقه · 🔥 حدود ${f(r.c)} کالری</div><details><summary>طرز تهیه (برای ${lab()})</summary><p><b>مواد:</b> ${esc(sc(r.i,kf()))}</p><ol>${r.s.map(s=>`<li>${esc(s)}</li>`).join('')}</ol></details></div>`;
+const card=(r,tag)=>`<div class="card"><b>${esc(r.n)}</b> ${r.o=='r'?'<span class="tag">🍽️ رستورانی</span>':r.o=='q'?'<span class="tag">📜 قدیمی</span>':r.o=='d'?'<span class="tag">🏺 دزفولی</span>':r.o=='f'?'<span class="tag w">🍔 فست‌فود</span>':''} ${tag||''}<span style="float:left"><span data-fav="${esc(r.n)}" style="cursor:pointer;font-size:1.2rem">${ST.fav.includes(r.n)?'❤️':'🤍'}</span>${r.my?` <span data-del="${esc(r.n)}" style="cursor:pointer" title="حذف">🗑️</span>`:''}</span><div class="sm">⏱ ${f(r.tm)} دقیقه · 🔥 حدود ${f(r.c)} کالری</div><details><summary>طرز تهیه (برای ${lab()})</summary><p><b>مواد:</b> ${esc(sc(r.i,kf()))}</p><ol>${r.s.map(s=>`<li>${esc(s)}</li>`).join('')}</ol></details></div>`;
 function match(){const H=new Set(ST.have.map(nz));return R.filter(r=>!r.x&&r.t!='s').map(r=>({r,mi:r.m.filter(x=>!H.has(nz(x)))})).filter(o=>o.mi.length<=1).sort((a,b)=>a.mi.length-b.mi.length)}
 function show(){const m=match();if(!ST.have.length||!m.length){$('#res').innerHTML=!ST.have.length?'<p class="sm">اول چیزایی که داری رو انتخاب کن 👆</p>':'<p class="sm">با این مواد غذایی پیدا نشد؛ چند تا مورد دیگه هم اضافه کن.</p>';$('#resp').innerHTML='';return}
 pager('res',m,o=>card(o.r,o.mi.length?`<span class="tag w">فقط ${o.mi[0]} کم داری</span>`:'<span class="tag">همه‌ی مواد هست ✓</span>'),o=>o.r.n)}
@@ -293,9 +318,9 @@ if('serviceWorker' in navigator&&location.protocol=='https:')addEventListener('l
 const toast=m=>{let t=$('#ts');if(!t){t=document.createElement('div');t.id='ts';t.style.cssText='position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ac);color:#fff;padding:10px 18px;border-radius:12px;z-index:9;max-width:90%;text-align:center';document.body.appendChild(t)}t.textContent=m;t.style.display='block';clearTimeout(t.k);t.k=setTimeout(()=>t.style.display='none',4000)};
 function addI(raw){const x=raw.trim();if(!x)return;if(!ST.cx.some(c=>nz(c)==nz(x)))ST.cx.push(x);if(!ST.have.some(c=>nz(c)==nz(x)))ST.have.push(x);sv();ings();show();if(!R.some(r=>!r.x&&r.m.some(m=>nz(m)==nz(x))))toast('هنوز غذایی با «'+x+'» تو لیستم نیست؛ از بخش «غذای خودم رو اضافه کنم» می‌تونی یکی بسازی')}
 $('#na').onclick=()=>{addI($('#ni').value);$('#ni').value=''};$('#ni').onkeydown=e=>{if(e.key=='Enter')$('#na').click()};
-let MF='all';const FL=[['all','همه'],['b','صبحانه'],['m','ناهار و شام'],['r','🍽️ منوی رستوران'],['f','🍔 فست‌فود'],['s','میان‌وعده'],['fav','❤️ علاقه‌مندی‌ها']];
+let MF='all';const FL=[['all','همه'],['b','صبحانه'],['m','ناهار و شام'],['r','🍽️ منوی رستوران'],['f','🍔 فست‌فود'],['d','🏺 دزفولی'],['q','📜 قدیمی'],['s','میان‌وعده'],['fav','❤️ علاقه‌مندی‌ها']];
 function menu(){$('#fl').innerHTML=FL.map(([k,l])=>`<span class="chip${k==MF?' on':''}" data-f="${k}">${l}</span>`).join('');
-const q=nz($('#q').value),L=R.filter(r=>!r.x&&(MF=='all'||(MF=='fav'?ST.fav.includes(r.n):(MF=='r'||MF=='f')?r.o==MF:r.t.includes(MF)))&&(!q||nz(r.n+r.m.join('')+(r.a||'')).includes(q)));
+const q=nz($('#q').value),L=R.filter(r=>!r.x&&(MF=='all'||(MF=='fav'?ST.fav.includes(r.n):'rfdq'.includes(MF)?r.o==MF:r.t.includes(MF)))&&(!q||nz(r.n+r.m.join('')+(r.a||'')).includes(q)));
 L.length?pager('all',L,r=>card(r),r=>r.n):($('#allp').innerHTML='',$('#all').innerHTML='<p class="sm">چیزی پیدا نشد 🤷</p>')}
 $('#fl').onclick=e=>{const c=e.target.closest('[data-f]');if(c){MF=c.dataset.f;menu()}};$('#q').oninput=menu;menu();
 document.addEventListener('click',e=>{const fv=e.target.closest('[data-fav]'),dl=e.target.closest('[data-del]');
@@ -314,7 +339,7 @@ $('#im').onchange=e=>{const fl=e.target.files[0];if(!fl)return;const rd=new File
 document.addEventListener('click',e=>{const b=e.target.closest('[data-pg]');if(b&&!b.disabled){PG[b.dataset.pg].n+=+b.dataset.d;(b.dataset.pg=='all'?menu:show)();scrollTo(0,0)}
 const s=e.target.closest('[data-st]');if(s){const k=s.dataset.st;ST[k]=Math.min(12,Math.max(k=='ad'?1:0,ST[k]+ +s.dataset.d));sv();hh();show();menu()}
 const dy=e.target.closest('[data-day]');if(dy){PD=+dy.dataset.day;selDay()}});
-[["قورمه‌سبزی","خورش سبزی،برنج خورش سبزی"],["عدس‌پلو","برنج عدس"],["آبگوشت","او گوشت،دیزی"],["خوراک مرغ و سیب‌زمینی","سیب مرغ"],["سوسیس بندری","بندری"],["برگر خونگی","همبر"],["مرغ سوخاری","سوخاری"],["ماکارونی","ماکارانی"],["کتلت","کتلت گوشت"],["سوپ جو","سوپ جو"],["پیتزا خونگی","پیتزا"]].forEach(([n,a])=>{const r=R.find(x=>nz(x.n)==nz(n));if(r)r.a=a});
+[["قورمه‌سبزی","خورش سبزی،برنج خورش سبزی"],["عدس‌پلو","برنج عدس"],["آبگوشت","او گوشت،دیزی"],["خوراک مرغ و سیب‌زمینی","سیب مرغ"],["سوسیس بندری","بندری"],["برگر خونگی","همبر"],["مرغ سوخاری","سوخاری"],["ماکارونی","ماکارانی"],["کتلت","کتلت گوشت"],["سوپ جو","سوپ جو"],["پیتزا خونگی","پیتزا"],["کلم‌پلو","قنبیدپلو قم،کلم پلو شیرازی"],["خوراک اسفناج","نرگسی"]].forEach(([n,a])=>{const r=R.find(x=>nz(x.n)==nz(n));if(r)r.a=a});
 function hh(){$('#ad').textContent=f(ST.ad);$('#kd').textContent=f(ST.kd)}hh();
 let PD=0;function selDay(){[...$('#wk').children].forEach((c,i)=>c.classList.toggle('sel',i==PD));$('#dt').innerHTML=ST.plan?D.map((n,i)=>`<span class="chip${i==PD?' on':''}" data-day="${i}">${n}</span>`).join(''):''}
 // ---- plan
@@ -352,10 +377,10 @@ addEventListener('hashchange',go);go();
 // ---- 3D
 try{
 const cv=$('#c'),sm=innerWidth<700,rd=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true,powerPreference:'high-performance'});
-rd.setPixelRatio(Math.min(devicePixelRatio,sm?1.6:2));rd.outputEncoding=THREE.sRGBEncoding;rd.toneMapping=THREE.ACESFilmicToneMapping;rd.toneMappingExposure=1.15;
+rd.setPixelRatio(Math.min(devicePixelRatio,sm?1.6:2));rd.outputEncoding=THREE.sRGBEncoding;rd.toneMapping=THREE.ACESFilmicToneMapping;rd.toneMappingExposure=.88;
 const sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(42,1,.1,60);
-sc.add(new THREE.HemisphereLight(0xfff1de,0x7a4423,.85));
-const dl=new THREE.DirectionalLight(0xffffff,1.15);dl.position.set(4,8,6);sc.add(dl);
+sc.add(new THREE.HemisphereLight(0xfff1de,0x7a4423,.55));
+const dl=new THREE.DirectionalLight(0xffffff,.95);dl.position.set(4,8,6);sc.add(dl);
 const rl=new THREE.PointLight(0xff8a3d,1.1,20);rl.position.set(-5,2,-4);sc.add(rl);
 const M=(c,r=.5,x)=>new THREE.MeshPhysicalMaterial(Object.assign({color:c,roughness:r,clearcoat:.35,clearcoatRoughness:.35},x));
 const S=(g,m,sx=1,sy=1,sz=1)=>{const o=new THREE.Mesh(g,m);o.scale.set(sx,sy,sz);return o};
@@ -377,7 +402,7 @@ const blob=new THREE.Mesh(new THREE.PlaneGeometry(4.4,4.4),new THREE.MeshBasicMa
 const sc2=document.createElement('canvas');sc2.width=sc2.height=64;const sx=sc2.getContext('2d'),sr=sx.createRadialGradient(32,32,0,32,32,32);sr.addColorStop(0,'rgba(255,255,255,1)');sr.addColorStop(1,'rgba(255,255,255,0)');sx.fillStyle=sr;sx.fillRect(0,0,64,64);
 const NS=40,sa=new Float32Array(NS*3),sg=new THREE.BufferGeometry();sg.setAttribute('position',new THREE.BufferAttribute(sa,3));
 const sd=Array.from({length:NS},()=>({a:Math.random()*6.28,r:Math.random()*.6,t:Math.random()}));
-const steam=new THREE.Points(sg,new THREE.PointsMaterial({size:.75,map:new THREE.CanvasTexture(sc2),transparent:true,opacity:.3,depthWrite:false,color:0xfff3e0}));bowl.add(steam);
+const steam=new THREE.Points(sg,new THREE.PointsMaterial({size:.6,map:new THREE.CanvasTexture(sc2),transparent:true,opacity:.16,depthWrite:false,color:0xfff3e0}));bowl.add(steam);
 window.setTh=d=>steam.material.color.set(d?0xfff3e0:0xc99a72);setTh(isD());
 // مواد غذایی دور کاسه
 const cap=(y,r=.17)=>{const c=S(new THREE.ConeGeometry(r,.14,6),M(0x2f9e44,.7));c.position.y=y;return c};
