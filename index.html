@@ -12,68 +12,89 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="چی بپزم؟">
 <script>try{var t=localStorage.getItem('th');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#fff7ec;--fg:#3b2418;--card:#ffffffd9;--ac:#d9480f;--mut:#8a6a58;--br:#f0d9c2;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1a110c;--fg:#fbeee0;--card:#2a1c14d9;--ac:#ff8a4c;--mut:#c4a48e;--br:#4a3224;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#1a110c;--fg:#fbeee0;--card:#2a1c14d9;--ac:#ff8a4c;--mut:#c4a48e;--br:#4a3224;color-scheme:dark}
-html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:Vazirmatn,Tahoma,sans-serif;line-height:1.9}
+@font-face{font-family:Vazirmatn;src:url(fonts/Vazirmatn.woff2) format("woff2");font-weight:100 900;font-display:swap}
+:root{--bg:#fff4e4;--fg:#3b2418;--card:rgba(255,250,242,.8);--c2:rgba(255,255,255,.6);--ac:#d9480f;--ac2:#ff922b;--mut:#7d5f4e;--br:rgba(120,70,30,.15);--sh:0 10px 34px rgba(120,60,10,.14)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#150d09;--fg:#fbeee0;--card:rgba(34,23,17,.78);--c2:rgba(255,255,255,.06);--ac:#ff8a4c;--ac2:#ffb066;--mut:#c9ab96;--br:rgba(255,200,150,.15);--sh:0 10px 34px rgba(0,0,0,.45);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#150d09;--fg:#fbeee0;--card:rgba(34,23,17,.78);--c2:rgba(255,255,255,.06);--ac:#ff8a4c;--ac2:#ffb066;--mut:#c9ab96;--br:rgba(255,200,150,.15);--sh:0 10px 34px rgba(0,0,0,.45);color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(120% 70% at 50% 0%,var(--c2),transparent),var(--bg);color:var(--fg);font:400 16px/1.9 Vazirmatn,Tahoma,sans-serif;padding-bottom:calc(92px + env(safe-area-inset-bottom,0px));overflow-x:hidden}
 #c{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 main{position:relative;z-index:1}
-section{min-height:100vh;padding:72px 18px;max-width:980px;margin:auto}
-.hero{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
-h1{font-size:clamp(2.4rem,9vw,5rem);margin:0;font-weight:900;line-height:1.3}
-h1 span{color:var(--ac)}
-h2{font-size:1.9rem;margin:0 0 6px}
-p.s{color:var(--mut);margin:0 0 22px}
-.btn{background:var(--ac);color:#fff;border:0;border-radius:14px;padding:12px 26px;font:inherit;font-weight:700;cursor:pointer;margin:6px;text-decoration:none;display:inline-block}
-.btn.o{background:transparent;color:var(--ac);border:2px solid var(--ac)}
-.card{background:var(--card);border:1px solid var(--br);border-radius:18px;padding:18px;backdrop-filter:blur(8px)}
-.g{margin-bottom:14px}.g b{display:block;margin-bottom:4px}
-.chip{display:inline-block;border:1px solid var(--br);background:var(--card);border-radius:99px;padding:3px 14px;margin:3px;cursor:pointer;user-select:none}
-.chip.on{background:var(--ac);color:#fff;border-color:var(--ac)}
-.res{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;margin-top:16px}
-.tag{font-size:.8rem;border-radius:8px;padding:1px 9px;background:#2f9e4422;color:#2f9e44}.tag.w{background:#f0820022;color:#e8590c}
-details summary{cursor:pointer;color:var(--ac);font-weight:700}
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center;padding:calc(72px + env(safe-area-inset-top,0px)) 20px 118px;touch-action:pan-y}
+h1{font-size:clamp(2.2rem,11vw,3.6rem);margin:0;font-weight:900;line-height:1.35}
+h1 span{background:linear-gradient(135deg,var(--ac2),var(--ac));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:8px auto 0;color:var(--mut);max-width:420px}
+.cta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;width:100%;max-width:460px}
+section.p{width:calc(100% - 20px);max-width:760px;margin:16px auto;padding:22px 14px;border-radius:28px;background:var(--card);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--br);box-shadow:var(--sh)}
+h2{font-size:1.5rem;margin:0 0 4px;font-weight:800}
+p.s{color:var(--mut);margin:0 0 16px;font-size:.95rem}
+.btn{background:linear-gradient(135deg,var(--ac2),var(--ac));color:#fff;border:0;border-radius:16px;min-height:48px;padding:10px 22px;font:inherit;font-weight:700;cursor:pointer;margin:4px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(217,72,15,.28)}
+.btn.o{background:var(--c2);color:var(--ac);border:1.5px solid var(--ac);box-shadow:none}
+.btn:active{transform:scale(.97)}
+.cta .btn{flex:1 1 140px;margin:0}
+.card{background:var(--c2);border:1px solid var(--br);border-radius:18px;padding:14px}
+.g{margin-bottom:12px}.g>b{display:block;margin-bottom:4px;font-weight:700}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:40px;border:1px solid var(--br);background:var(--c2);border-radius:99px;padding:4px 15px;margin:3px;cursor:pointer;user-select:none;font-size:.95rem}
+.chip.on{background:linear-gradient(135deg,var(--ac2),var(--ac));color:#fff;border-color:transparent}
+.res,.days{display:grid;grid-template-columns:1fr;gap:12px;margin-top:14px}
+@media(min-width:680px){.res,.days{grid-template-columns:1fr 1fr}.f{grid-template-columns:repeat(3,1fr)!important}}
+.tag{font-size:.78rem;border-radius:8px;padding:1px 9px;background:#2f9e4422;color:#2f9e44;font-weight:600}.tag.w{background:#f0820022;color:#e8590c}
+details summary{cursor:pointer;color:var(--ac);font-weight:700;min-height:36px}
 ol{padding-right:20px;margin:6px 0}
-.f{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
-input,select,textarea{width:100%;font:inherit;padding:9px;border-radius:10px;border:1px solid var(--br);background:var(--bg);color:var(--fg)}
-.days{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:16px}
-.m{font-size:.82rem;color:var(--mut);margin-top:6px}.m select{margin-top:2px}
-.sm{font-size:.8rem;color:var(--mut)}
-.tb{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:12px;z-index:6;width:44px;height:44px;border-radius:50%;border:1px solid var(--br);background:var(--card);color:var(--fg);font-size:1.2rem;cursor:pointer;backdrop-filter:blur(8px)}
-.rv{opacity:0;transform:translateY(40px);transition:.8s}.rv.in{opacity:1;transform:none}
-footer{text-align:center;color:var(--mut);padding:30px 18px 60px;position:relative;z-index:1;font-size:.85rem}
+.f{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+input,select,textarea{width:100%;font:inherit;font-size:16px;min-height:46px;padding:9px 12px;border-radius:14px;border:1px solid var(--br);background:var(--bg);color:var(--fg)}
+.m{font-size:.85rem;color:var(--mut);margin-top:8px}.m select{margin:2px 0}
+.sm{font-size:.82rem;color:var(--mut)}
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s}.rv.in{opacity:1;transform:none}
+.tb{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:12px;z-index:9;width:46px;height:46px;border-radius:50%;border:1px solid var(--br);background:var(--card);color:var(--fg);font-size:1.2rem;cursor:pointer;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:var(--sh)}
+.bn{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom,0px));width:min(94%,460px);display:flex;gap:2px;padding:6px;border-radius:26px;background:var(--card);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--br);box-shadow:var(--sh);z-index:8}
+.bn a{flex:1;display:flex;flex-direction:column;align-items:center;text-decoration:none;color:var(--mut);font-size:.72rem;line-height:1.5;padding:6px 0;border-radius:20px}
+.bn a span{font-size:1.25rem;line-height:1.4}
+.bn a.on{background:var(--c2);color:var(--ac);font-weight:700}
+.ab{color:var(--mut);font-size:.92rem;margin:12px 0 0}.ab a{color:inherit;text-decoration:none}
+footer{text-align:center;color:var(--mut);padding:10px 16px 20px;position:relative;z-index:1;font-size:.85rem}
+.hint{animation:bob 1.8s infinite}@keyframes bob{50%{transform:translateY(6px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+.pg:not(.on){display:none!important}.pg.on{animation:pin .4s ease}@keyframes pin{from{opacity:0;transform:translateY(14px)}}
+main>section.p{margin-top:calc(68px + env(safe-area-inset-top,0px))}
+.hh{width:100%;max-width:460px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 10px;background:var(--card);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.st{display:flex;align-items:center;gap:12px}.st span{min-width:26px;font-weight:800;font-size:1.2rem}
+.st button{width:42px;height:42px;border-radius:50%;border:1px solid var(--br);background:var(--c2);color:var(--ac);font:inherit;font-size:1.4rem;cursor:pointer}
+.pager{display:flex;justify-content:space-between;align-items:center;margin-top:14px}.pager .btn{min-height:42px;padding:6px 16px;margin:0}.pager .btn:disabled{opacity:.35}
+#wk{grid-template-columns:1fr!important}#wk>.card{display:none}#wk>.card.sel{display:block}#dt{margin-top:12px;overflow-x:auto;white-space:nowrap}
 </style>
 </head>
 <body>
 <canvas id="c"></canvas>
 <button id="th" class="tb" aria-label="تغییر تم روشن/تاریک"></button>
 <main>
-<section class="hero">
-  <h1>امروز <span>چی بپزم؟</span></h1>
-  <p class="s" style="font-size:1.2rem;max-width:520px">دیگه لازم نیست هر روز از خودت بپرسی ناهار چی داریم! ببین تو یخچال چی داری، بقیه‌اش با ما.</p>
-  <div><a class="btn" href="#fridge">یخچالو نگاه کن 🧊</a><a class="btn o" href="#menu">همه‌ی غذاها 📖</a><a class="btn o" href="#plan">برنامه غذایی من 📅</a></div>
-  <p class="sm" style="margin-top:40px">⬇ اسکرول کن</p>
+<section id="home" class="hero pg on">
+  <div><h1>امروز <span>چی بپزم؟</span></h1><p>دیگه لازم نیست هر روز بپرسی ناهار چی داریم! ببین تو یخچال چی داری، بقیه‌اش با ما.</p></div>
+  <div style="width:100%;display:flex;flex-direction:column;align-items:center;gap:12px">
+    <div class="card hh"><b>خونه چند نفره؟</b><div class="st"><button data-st="ad" data-d="-1" aria-label="کمتر">−</button><span id="ad">۲</span><button data-st="ad" data-d="1" aria-label="بیشتر">+</button></div>
+    <details style="width:100%"><summary>تخصصی‌تر می‌خوای؟ بچه دارین؟</summary><div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px"><span>تعداد بچه‌ها</span><div class="st"><button data-st="kd" data-d="-1" aria-label="کمتر">−</button><span id="kd">۰</span><button data-st="kd" data-d="1" aria-label="بیشتر">+</button></div></div><p class="sm" style="margin:6px 0 0">هر بچه حدود ۶۰٪ یه بزرگسال حساب می‌شه و مقدار مواد همه‌ی غذاها با همین حساب می‌شه.</p></details></div>
+    <div class="cta"><a class="btn" href="#fridge">🧊 یخچالو نگاه کن</a><a class="btn o" href="#menu">📖 همه‌ی غذاها</a></div>
+    <p class="sm hint" style="margin:0">بکش و بچرخونش 🔄</p>
+  </div>
 </section>
 
-<section id="fridge" class="rv">
+<section id="fridge" class="pg p">
   <h2>تو یخچال و کابینت چی داری؟</h2>
   <p class="s">هر چی داری رو بزن تا غذاهایی که می‌شه باهاش پخت بیاد. (پیاز، رب، روغن، نمک و ادویه رو همیشه داری حساب کردیم.)</p>
   <div id="ings" class="card"></div>
   <div class="card" style="margin-top:12px"><b>ماده‌ی دیگه‌ای داری که تو لیست نیست؟</b><div style="display:flex;gap:8px;margin-top:8px"><input id="ni" list="dl" placeholder="مثلاً ذرت، ماش، سس..."><button class="btn" id="na" style="margin:0;white-space:nowrap">اضافه کن</button></div><datalist id="dl"></datalist></div>
   <div style="margin:12px 0"><button class="btn" id="rnd">🎲 یه چیزی پیشنهاد بده</button><button class="btn o" id="clr">پاک کردن همه</button></div>
-  <div id="res" class="res"></div>
+  <div id="res" class="res"></div><div id="resp" class="pager"></div>
 </section>
 
-<section id="menu" class="rv">
+<section id="menu" class="pg p">
   <h2>همه‌ی غذاها 📖</h2>
   <p class="s">اگه ایده نداری، یه نگاه بنداز؛ شاید با دیدنشون یادت بیاد دلت چی می‌خواد. ❤️ بزن تا تو علاقه‌مندی‌هات بمونه.</p>
   <input id="q" placeholder="جستجو: اسم غذا یا ماده‌ی اصلی (مثلاً عدس)">
   <div id="fl" style="margin:10px 0"></div>
-  <div id="all" class="res"></div>
+  <div id="all" class="res"></div><div id="allp" class="pager"></div>
   <details class="card" style="margin-top:16px"><summary>➕ غذای خودم رو اضافه کنم</summary>
     <div class="f" style="margin-top:12px">
       <div class="g"><b>اسم غذا</b><input id="mn"></div>
@@ -88,7 +109,7 @@ footer{text-align:center;color:var(--mut);padding:30px 18px 60px;position:relati
   </details>
 </section>
 
-<section id="plan" class="rv">
+<section id="plan" class="pg p">
   <h2>برنامه غذایی هفتگی</h2>
   <p class="s">مشخصاتتو بده تا کالری لازمت حساب بشه و یه برنامه برات بچینیم. هر وعده‌ای رو دوست نداشتی، خودت عوضش کن.</p>
   <div class="card">
@@ -105,16 +126,17 @@ footer{text-align:center;color:var(--mut);padding:30px 18px 60px;position:relati
     <div id="kc" style="margin-top:12px"></div>
     <p class="sm">⚠️ کالری با فرمول معروف Mifflin-St Jeor تخمین زده می‌شه و کالری غذاها هم تقریبیه. برای کم کردن وزن، حداکثر حدود ۱۵٪ (و نهایتاً ۵۰۰ کالری) کمتر از نیازت در نظر گرفته می‌شه و هیچ‌وقت کمتر از ۱٬۲۰۰ (خانم‌ها) و ۱٬۵۰۰ (آقایون) نمیاد. این برنامه جای نظر پزشک یا متخصص تغذیه نیست. اگه بیماری خاصی داری، قبل از شروع حتماً باهاش مشورت کن و بعد از ۲ تا ۳ هفته با توجه به وزنت برنامه رو اصلاح کن.</p>
   </div>
-  <div id="wk" class="days"></div>
+  <div id="dt"></div><div id="wk" class="days"></div><p class="sm" style="margin-top:12px">فست‌فودها توی برنامه‌ی هفتگی نمیان.</p>
   <button class="btn o" id="sh" style="display:none">🔀 یه برنامه جدید بچین</button>
 </section>
+<section id="me" class="pg p"><h2>درباره‌ی اپ</h2><p class="s" style="margin:0">این اپ رو محمد برای خونه‌ی خودش ساخته که دیگه کسی نپرسه «امروز چی بپزم؟»، و حالا برای دوستاش هم گذاشته. اگه پیشنهادی داشتی یا غذایی رو دوست داشتی اضافه بشه، بهش بگو.</p><p class="ab">محمد · <a href="tel:09163476180" dir="ltr">۰۹۱۶ ۳۴۷ ۶۱۸۰</a></p><div class="card" style="margin-top:16px;text-align:center"><p class="sm">همه‌چیز (مواد، برنامه، غذاهای خودت) خودکار روی همین مرورگر ذخیره می‌شه. اگه مرورگرت رو پاک کردی از بین می‌ره، پس یه نسخه‌ی پشتیبان بگیر:</p><button class="btn o" id="ex">📥 پشتیبان‌گیری</button><label class="btn o" for="im">📤 بازیابی</label><input id="im" type="file" accept=".json" hidden><p>ساخته‌شده با ❤️ برای همه‌ی خونه‌هایی که هر روز می‌پرسن «ناهار چی داریم؟»</p></div></section>
 </main>
-<footer><p class="sm">همه‌چیز (مواد، برنامه، غذاهای خودت) خودکار روی همین مرورگر ذخیره می‌شه. اگه مرورگرت رو پاک کردی از بین می‌ره، پس یه نسخه‌ی پشتیبان بگیر:</p><button class="btn o" id="ex">📥 پشتیبان‌گیری</button><label class="btn o" for="im">📤 بازیابی</label><input id="im" type="file" accept=".json" hidden><p>ساخته‌شده با ❤️ برای همه‌ی خونه‌هایی که هر روز می‌پرسن «ناهار چی داریم؟»</p></footer>
+<nav class="bn"><a href="#home" class="on"><span>🏠</span>خانه</a><a href="#fridge"><span>🧊</span>یخچال</a><a href="#menu"><span>📖</span>غذاها</a><a href="#plan"><span>📅</span>برنامه</a><a href="#me"><span>👤</span>من</a></nav>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="lib/three.min.js"></script>
 <script>
 const $=s=>document.querySelector(s),f=n=>Number(n).toLocaleString('fa-IR');
-const IG={"گوشت و پروتئین":["گوشت قرمز","مرغ","ماهی","تخم‌مرغ"],"حبوبات و غلات":["برنج","عدس","لوبیا","نخود","لپه","ماکارونی","رشته","جو"],"سبزیجات":["سیب‌زمینی","گوجه","بادمجان","کدو","سبزی","لوبیا سبز","اسفناج","قارچ","کلم","هویج"],"لبنیات و بقیه":["ماست","پنیر","کشک","نان","گردو","عسل","میوه"]};
+const IG={"گوشت و پروتئین":["گوشت قرمز","مرغ","ماهی","سوسیس","تخم‌مرغ"],"حبوبات و غلات":["برنج","عدس","لوبیا","نخود","لپه","ماکارونی","رشته","جو","باقالی","آرد"],"سبزیجات":["سیب‌زمینی","گوجه","بادمجان","کدو","سبزی","لوبیا سبز","اسفناج","قارچ","کلم","هویج","کرفس","خیار"],"لبنیات و بقیه":["ماست","پنیر","کشک","نان","گردو","عسل","میوه","شیر"]};
 // t: b=صبحانه m=ناهار/شام s=میان‌وعده | c=کالری هر پرس | m=مواد اصلی لازم
 const R=[
 {n:"املت",t:"bm",c:300,tm:10,m:["تخم‌مرغ","گوجه"],i:"۴ تخم‌مرغ، ۳ گوجه، ۱ پیاز کوچک، روغن، نمک و فلفل",s:["پیاز رو خلالی کن و تو روغن تفت بده.","گوجه‌ها رو ریز کن و بریز، تا آب‌شون کشیده بشه.","تخم‌مرغ‌ها رو بشکن روش، بذار ببنده یا هم بزن."]},
@@ -153,12 +175,39 @@ const R=[
 {n:"سوپ مرغ و سبزیجات",t:"m",c:300,tm:50,m:["مرغ","هویج","سیب‌زمینی"],i:"۱ سینه مرغ، ۱ هویج، ۱ سیب‌زمینی، ۱ پیاز، جعفری",s:["مرغ و پیاز رو بجوشون.","سبزی‌ها رو خرد کن و اضافه کن و ۲۰ دقیقه بپز.","مرغ رو ریش کن و جعفری بزن."]},
 {n:"کوکو کدو",t:"m",c:280,tm:35,m:["کدو","تخم‌مرغ"],i:"۳ کدو، ۲ تخم‌مرغ، ۱ پیاز، آرد",s:["کدو رو رنده کن و آبش رو بگیر.","با تخم‌مرغ و آرد و ادویه قاطی کن.","دو طرف تو روغن سرخ کن."]},
 {n:"نان و عسل",t:"b",c:300,tm:2,m:["نان","عسل"],i:"۲ تکه نان، عسل، کره یا پنیر",s:["نان رو با کره و عسل بخور."]},
-{n:"میوه",t:"s",c:90,tm:1,m:["میوه"],i:"یه عدد میوه‌ی فصل",s:["بشور و بخور."]}
+{n:"میوه",t:"s",c:90,tm:1,m:["میوه"],i:"یه عدد میوه‌ی فصل",s:["بشور و بخور."]},
+{n:"چلوکباب کوبیده",t:"m",o:"r",c:700,tm:50,m:["گوشت قرمز","برنج"],i:"۴۰۰ گرم گوشت چرخ‌کرده، ۱ پیاز بزرگ، ۱ پیمانه برنج، زعفران، گوجه کبابی",s:["گوشت و پیاز رنده‌شده رو با نمک خوب ورز بده تا چسبناک بشه.","دور سیخ پهن کن (یا رو تابه) و بپز.","با برنج زعفرانی و گوجه کبابی سرو کن."]},
+{n:"جوجه‌کباب",t:"m",o:"r",c:650,tm:60,m:["مرغ","برنج"],i:"۵۰۰ گرم مرغ تکه‌شده، ۱ پیاز، ۱/۴ پیمانه ماست، زعفران، آبلیمو، ۱ پیمانه برنج",s:["مرغ رو با پیاز رنده، ماست، زعفران و آبلیمو ۲ ساعت بخوابون.","سیخ بکش و رو شعله یا تو فر بپز تا طلایی بشه.","با برنج و گوجه کبابی سرو کن."]},
+{n:"چلو ماهیچه",t:"m",o:"r",c:750,tm:150,m:["گوشت قرمز","برنج"],i:"۲ ماهیچه گوسفند، ۱ پیاز، ۱ پیمانه برنج، زعفران، دارچین",s:["ماهیچه رو با پیاز، زعفران و دارچین ۲ ساعت آروم بپز.","برنج رو دم کن.","ماهیچه رو با کمی آب‌ش روی پلو سرو کن."]},
+{n:"باقالی‌پلو با مرغ",t:"m",o:"r",c:680,tm:90,m:["باقالی","برنج","مرغ"],i:"۱ پیمانه برنج، ۱ پیمانه باقالی پوست‌کنده، ۲ ران مرغ، شوید خشک، زعفران",s:["مرغ رو با پیاز و زعفران بپز.","برنج رو با باقالی و شوید لایه‌لایه بچین.","دم کن (۴۵ دقیقه) و با مرغ سرو کن."]},
+{n:"فسنجان",t:"m",o:"r",c:620,tm:120,m:["مرغ","گردو"],i:"۲ ران مرغ، ۱ پیمانه گردو آسیاب‌شده، ۱/۲ پیمانه رب انار، ۱ پیاز، شکر، زردچوبه",s:["پیاز رو تفت بده، گردو رو اضافه کن و ۱۵ دقیقه هم بزن تا طلایی بشه.","آب، رب انار و مرغ رو بریز.","۱.۵ ساعت آروم بپز تا روغن بندازه."]},
+{n:"خورش بادمجان",t:"m",o:"r",c:520,tm:90,m:["بادمجان","گوشت قرمز","گوجه"],i:"۲۰۰ گرم گوشت، ۴ بادمجان، ۲ گوجه، ۱ پیاز، رب، آبغوره",s:["گوشت و پیاز رو با رب تفت بده و بپز.","بادمجان‌های سرخ‌شده و گوجه رو بذار روش.","۲۰ دقیقه جا بیفته و آبغوره بزن."]},
+{n:"خورش کرفس",t:"m",o:"r",c:500,tm:110,m:["کرفس","گوشت قرمز","سبزی"],i:"۲۰۰ گرم گوشت، ۱ دسته کرفس، ۱ پیمانه سبزی خورش، ۱ پیاز، لیمو عمانی",s:["گوشت رو بپز.","کرفس و سبزی رو جدا تفت بده.","با گوشت قاطی کن و ۴۰ دقیقه آروم بپز؛ آخرش لیمو بزن."]},
+{n:"کوفته تبریزی",t:"m",o:"r",c:550,tm:120,m:["گوشت قرمز","برنج","لپه"],i:"۳۰۰ گرم گوشت چرخ‌کرده، ۱/۲ پیمانه برنج، ۱/۴ پیمانه لپه، ۱ پیاز، ۲ تخم‌مرغ آب‌پز، رب",s:["گوشت، برنج، لپه‌ی پخته و ادویه رو ورز بده.","تو هر گلوله یه تخم‌مرغ بذار و شکل بده.","تو سس رب و پیاز ۴۵ دقیقه بپز."]},
+{n:"شیر برنج",t:"s",o:"r",c:280,tm:50,m:["برنج","شیر"],i:"۱/۲ پیمانه برنج، ۲ پیمانه شیر، ۴ قاشق شکر، گلاب، دارچین",s:["برنج رو تو آب بپز تا نرم بشه.","شیر و شکر رو اضافه کن و هم بزن تا غلیظ بشه.","با دارچین و گلاب سرو کن."]},
+{n:"سالاد شیرازی",t:"s",o:"r",c:70,tm:10,m:["خیار","گوجه"],i:"۳ خیار، ۳ گوجه، ۱ پیاز، آبلیمو، نعنا خشک",s:["همه رو ریز خرد کن.","با آبلیمو، نمک و نعنا قاطی کن و خنک بخور."]},
+{n:"پیتزا خونگی",t:"m",o:"f",c:650,tm:60,m:["آرد","پنیر"],i:"۲ پیمانه آرد، ۱ قاشق مرباخوری مخمر، ۲۰۰ گرم پنیر پیتزا، ۴ قاشق سس گوجه، قارچ و سوسیس یا ژامبون",s:["آرد، مخمر، آب ولرم و نمک رو ورز بده و ۳۰ دقیقه بذار بیاد.","پهن کن، سس و مواد و پنیر رو بریز.","تو فر ۲۲۰ درجه ۱۵ دقیقه بپز."]},
+{n:"برگر خونگی",t:"m",o:"f",c:650,tm:30,m:["گوشت قرمز","نان","پنیر"],i:"۳۰۰ گرم گوشت چرخ‌کرده، ۲ نان همبرگر، ۲ تکه پنیر، گوجه، کاهو، سس",s:["گوشت رو با نمک و فلفل شکل بده.","هر طرف ۴ دقیقه رو تابه سرخ کن، پنیر رو روش بذار.","تو نان با گوجه، کاهو و سس سرو کن."]},
+{n:"مرغ سوخاری",t:"m",o:"f",c:580,tm:45,m:["مرغ","آرد"],i:"۴ تکه مرغ، ۱ پیمانه آرد، ۱ تخم‌مرغ، پودر سوخاری، ادویه",s:["مرغ رو با ادویه و کمی ماست مزه‌دار کن.","تو آرد، تخم‌مرغ و سوخاری بغلتون.","تو روغن داغ ۸ دقیقه هر طرف سرخ کن."]},
+{n:"سیب‌زمینی سرخ‌کرده",t:"m",o:"f",c:380,tm:25,m:["سیب‌زمینی"],i:"۳ سیب‌زمینی بزرگ، روغن، نمک",s:["سیب‌زمینی رو انگشتی ببر و آبش رو بگیر.","تو روغن داغ تا طلایی سرخ کن.","نمک بزن و داغ بخور."]},
+{n:"سوسیس بندری",t:"m",o:"f",c:450,tm:20,m:["سوسیس","گوجه"],i:"۴ سوسیس، ۲ گوجه، ۱ پیاز، رب، فلفل",s:["سوسیس‌ها رو حلقه‌ای ببر و تفت بده.","پیاز، گوجه و رب رو اضافه کن.","با نان و خیارشور سرو کن."]},
+{n:"ساندویچ مرغ",t:"m",o:"f",c:480,tm:25,m:["مرغ","نان"],i:"۱ سینه مرغ، ۲ نان ساندویچی، کاهو، گوجه، سس",s:["مرغ رو ادویه بزن و تکه تکه تفت بده.","تو نان با سبزی و سس بپیچ."]},
+{n:"پاستا آلفردو",t:"m",o:"f",c:680,tm:30,m:["ماکارونی","مرغ"],i:"۲۰۰ گرم پاستا، ۱ سینه مرغ، ۱ پیمانه خامه، ۲ حبه سیر، پنیر پارمزان",s:["پاستا رو بپز و آبکش کن.","مرغ و سیر رو تفت بده، خامه رو بریز.","پاستا رو قاطی کن و پنیر بپاش."]},
+{n:"فلافل",t:"m",o:"f",c:450,tm:40,m:["نخود","نان"],i:"۱ پیمانه نخود خیس‌خورده، ۱ پیاز، سیر، جعفری، زیره، ۲ نان",s:["نخود، پیاز، سبزی و ادویه رو چرخ کن.","گلوله کن و تو روغن سرخ کن.","تو نان با سالاد و ترشی سرو کن."]}
 ];
-const mk=x=>R.map((r,i)=>[r,i]).filter(([r])=>!r.x&&[...x].some(c=>r.t.includes(c))).map(([,i])=>i);
+const mk=x=>R.map((r,i)=>[r,i]).filter(([r])=>!r.x&&r.o!='f'&&[...x].some(c=>r.t.includes(c))).map(([,i])=>i);
 const ST=(()=>{try{return JSON.parse(localStorage.getItem("st"))||{}}catch(e){return{}}})();
 const sv=()=>{try{localStorage.setItem("st",JSON.stringify(ST))}catch(e){}};
-ST.have=ST.have||[];ST.plan=ST.plan||null;ST.tg=ST.tg||0;ST.cx=ST.cx||[];ST.fav=ST.fav||[];ST.my=ST.my||[];ST.my.forEach(r=>R.push(r));
+ST.have=ST.have||[];ST.plan=ST.plan||null;ST.tg=ST.tg||0;ST.cx=ST.cx||[];ST.ad=ST.ad||2;ST.kd=ST.kd||0;ST.fav=ST.fav||[];ST.my=ST.my||[];ST.my.forEach(r=>R.push(r));
+// مقیاس مقدار مواد بر اساس تعداد نفرات (مبنا: ۲ نفر)
+const FA='۰۱۲۳۴۵۶۷۸۹',en=s=>s.replace(/[۰-۹]/g,d=>FA.indexOf(d));
+const kf=()=>(ST.ad+.6*ST.kd)/2,lab=()=>f(ST.ad)+' نفر'+(ST.kd?' + '+f(ST.kd)+' بچه':'');
+const fm=v=>{v=v>=50?Math.round(v/10)*10:v>=10?Math.round(v):Math.round(v*4)/4;const w=Math.floor(v),fr=['','¼','½','¾'][Math.round((v-w)*4)];return (w||!fr?f(w):'')+(w&&fr?' ':'')+fr};
+const sc=(t,k)=>k==1?t:t.replace(/([0-9۰-۹]+)\/([0-9۰-۹]+)|([0-9۰-۹]+)/g,(m,a,b,c)=>fm((a?en(a)/en(b):+en(c))*k));
+// صفحه‌بندی لیست‌ها
+const PG={};function pager(id,L,rn,key,per=6){const st=PG[id]=PG[id]||{n:0,s:''},sg=L.map(key).join('|');if(st.s!=sg){st.s=sg;st.n=0}
+const t=Math.max(1,Math.ceil(L.length/per));st.n=Math.min(st.n,t-1);$('#'+id).innerHTML=L.slice(st.n*per,st.n*per+per).map(rn).join('');
+$('#'+id+'p').innerHTML=t>1?`<button class="btn o" data-pg="${id}" data-d="-1" ${st.n?'':'disabled'}>→ قبلی</button><span class="sm">${f(st.n+1)} از ${f(t)}</span><button class="btn o" data-pg="${id}" data-d="1" ${st.n<t-1?'':'disabled'}>بعدی ←</button>`:''}
 
 // ---- fridge
 const nz=s=>String(s).replace(/[\u200c\s]/g,'').replace(/ي/g,'ی').replace(/ك/g,'ک');
@@ -171,26 +220,27 @@ ings();
 $('#ings').onclick=e=>{const rm=e.target.closest('[data-rm]');if(rm){const n=nz(rm.dataset.rm);ST.cx=ST.cx.filter(x=>nz(x)!=n);ST.have=ST.have.filter(x=>nz(x)!=n);sv();ings();show();return}
 const c=e.target.closest('.chip');if(!c)return;const n=nz(c.dataset.i),h=ST.have.some(x=>nz(x)==n);ST.have=h?ST.have.filter(x=>nz(x)!=n):[...ST.have,c.dataset.i];sv();c.classList.toggle('on');show()};
 
-const card=(r,tag)=>`<div class="card"><b>${esc(r.n)}</b> ${tag||''}<span style="float:left"><span data-fav="${esc(r.n)}" style="cursor:pointer;font-size:1.2rem">${ST.fav.includes(r.n)?'❤️':'🤍'}</span>${r.my?` <span data-del="${esc(r.n)}" style="cursor:pointer" title="حذف">🗑️</span>`:''}</span><div class="sm">⏱ ${f(r.tm)} دقیقه · 🔥 حدود ${f(r.c)} کالری</div><details><summary>طرز تهیه (برای ۲ نفر)</summary><p><b>مواد:</b> ${esc(r.i)}</p><ol>${r.s.map(s=>`<li>${esc(s)}</li>`).join('')}</ol></details></div>`;
+const card=(r,tag)=>`<div class="card"><b>${esc(r.n)}</b> ${r.o=='r'?'<span class="tag">🍽️ رستورانی</span>':r.o=='f'?'<span class="tag w">🍔 فست‌فود</span>':''} ${tag||''}<span style="float:left"><span data-fav="${esc(r.n)}" style="cursor:pointer;font-size:1.2rem">${ST.fav.includes(r.n)?'❤️':'🤍'}</span>${r.my?` <span data-del="${esc(r.n)}" style="cursor:pointer" title="حذف">🗑️</span>`:''}</span><div class="sm">⏱ ${f(r.tm)} دقیقه · 🔥 حدود ${f(r.c)} کالری</div><details><summary>طرز تهیه (برای ${lab()})</summary><p><b>مواد:</b> ${esc(sc(r.i,kf()))}</p><ol>${r.s.map(s=>`<li>${esc(s)}</li>`).join('')}</ol></details></div>`;
 function match(){const H=new Set(ST.have.map(nz));return R.filter(r=>!r.x&&r.t!='s').map(r=>({r,mi:r.m.filter(x=>!H.has(nz(x)))})).filter(o=>o.mi.length<=1).sort((a,b)=>a.mi.length-b.mi.length)}
-function show(){const m=match();$('#res').innerHTML=!ST.have.length?'<p class="sm">اول چیزایی که داری رو انتخاب کن 👆</p>':m.length?m.map(o=>card(o.r,o.mi.length?`<span class="tag w">فقط ${o.mi[0]} کم داری</span>`:'<span class="tag">همه‌ی مواد هست ✓</span>')).join(''):'<p class="sm">با این مواد غذایی پیدا نشد؛ چند تا مورد دیگه هم اضافه کن.</p>'}
+function show(){const m=match();if(!ST.have.length||!m.length){$('#res').innerHTML=!ST.have.length?'<p class="sm">اول چیزایی که داری رو انتخاب کن 👆</p>':'<p class="sm">با این مواد غذایی پیدا نشد؛ چند تا مورد دیگه هم اضافه کن.</p>';$('#resp').innerHTML='';return}
+pager('res',m,o=>card(o.r,o.mi.length?`<span class="tag w">فقط ${o.mi[0]} کم داری</span>`:'<span class="tag">همه‌ی مواد هست ✓</span>'),o=>o.r.n)}
 $('#clr').onclick=()=>{ST.have=[];sv();ings();show()};
-$('#rnd').onclick=()=>{const m=match().filter(o=>!o.mi.length);if(!m.length){alert('اول چند تا ماده انتخاب کن 😊');return}const o=m[Math.random()*m.length|0];$('#res').innerHTML=card(o.r,'<span class="tag">پیشنهاد امروز 🎲</span>');$('#res').querySelector('details').open=true}
+$('#rnd').onclick=()=>{const m=match().filter(o=>!o.mi.length);if(!m.length){alert('اول چند تا ماده انتخاب کن 😊');return}const o=m[Math.random()*m.length|0];$('#resp').innerHTML='';$('#res').innerHTML=card(o.r,'<span class="tag">پیشنهاد امروز 🎲</span>');$('#res').querySelector('details').open=true}
 show();
 
 // ---- theme + PWA
 const isD=()=>{const t=document.documentElement.dataset.theme;return t?t=='dark':matchMedia('(prefers-color-scheme:dark)').matches};
-function th(){const d=isD();$('#th').textContent=d?'☀️':'🌙';document.querySelector('meta[name=theme-color]').content=d?'#1a110c':'#fff7ec'}
+function th(){const d=isD();window.setTh&&setTh(d);$('#th').textContent=d?'☀️':'🌙';document.querySelector('meta[name=theme-color]').content=d?'#1a110c':'#fff7ec'}
 $('#th').onclick=()=>{const n=isD()?'light':'dark';document.documentElement.dataset.theme=n;try{localStorage.setItem('th',n)}catch(e){}th()};th();
 if('serviceWorker' in navigator&&location.protocol=='https:')addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 // ---- extras
-const toast=m=>{let t=$('#ts');if(!t){t=document.createElement('div');t.id='ts';t.style.cssText='position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ac);color:#fff;padding:10px 18px;border-radius:12px;z-index:9;max-width:90%;text-align:center';document.body.appendChild(t)}t.textContent=m;t.style.display='block';clearTimeout(t.k);t.k=setTimeout(()=>t.style.display='none',4000)};
+const toast=m=>{let t=$('#ts');if(!t){t=document.createElement('div');t.id='ts';t.style.cssText='position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ac);color:#fff;padding:10px 18px;border-radius:12px;z-index:9;max-width:90%;text-align:center';document.body.appendChild(t)}t.textContent=m;t.style.display='block';clearTimeout(t.k);t.k=setTimeout(()=>t.style.display='none',4000)};
 function addI(raw){const x=raw.trim();if(!x)return;if(!ST.cx.some(c=>nz(c)==nz(x)))ST.cx.push(x);if(!ST.have.some(c=>nz(c)==nz(x)))ST.have.push(x);sv();ings();show();if(!R.some(r=>!r.x&&r.m.some(m=>nz(m)==nz(x))))toast('هنوز غذایی با «'+x+'» تو لیستم نیست؛ از بخش «غذای خودم رو اضافه کنم» می‌تونی یکی بسازی')}
 $('#na').onclick=()=>{addI($('#ni').value);$('#ni').value=''};$('#ni').onkeydown=e=>{if(e.key=='Enter')$('#na').click()};
-let MF='all';const FL=[['all','همه'],['b','صبحانه'],['m','ناهار و شام'],['s','میان‌وعده'],['fav','❤️ علاقه‌مندی‌ها']];
+let MF='all';const FL=[['all','همه'],['b','صبحانه'],['m','ناهار و شام'],['r','🍽️ منوی رستوران'],['f','🍔 فست‌فود'],['s','میان‌وعده'],['fav','❤️ علاقه‌مندی‌ها']];
 function menu(){$('#fl').innerHTML=FL.map(([k,l])=>`<span class="chip${k==MF?' on':''}" data-f="${k}">${l}</span>`).join('');
-const q=nz($('#q').value),L=R.filter(r=>!r.x&&(MF=='all'||(MF=='fav'?ST.fav.includes(r.n):r.t.includes(MF)))&&(!q||nz(r.n+r.m.join('')).includes(q)));
-$('#all').innerHTML=L.length?L.map(r=>card(r)).join(''):'<p class="sm">چیزی پیدا نشد 🤷</p>'}
+const q=nz($('#q').value),L=R.filter(r=>!r.x&&(MF=='all'||(MF=='fav'?ST.fav.includes(r.n):(MF=='r'||MF=='f')?r.o==MF:r.t.includes(MF)))&&(!q||nz(r.n+r.m.join('')).includes(q)));
+L.length?pager('all',L,r=>card(r),r=>r.n):($('#allp').innerHTML='',$('#all').innerHTML='<p class="sm">چیزی پیدا نشد 🤷</p>')}
 $('#fl').onclick=e=>{const c=e.target.closest('[data-f]');if(c){MF=c.dataset.f;menu()}};$('#q').oninput=menu;menu();
 document.addEventListener('click',e=>{const fv=e.target.closest('[data-fav]'),dl=e.target.closest('[data-del]');
 if(fv){const n=fv.dataset.fav;ST.fav=ST.fav.includes(n)?ST.fav.filter(x=>x!=n):[...ST.fav,n];sv();fv.textContent=ST.fav.includes(n)?'❤️':'🤍';if(MF=='fav')menu()}
@@ -205,11 +255,16 @@ sv();ings();menu();show();['mn','mi','mq','ms','mc','mm'].forEach(i=>$('#'+i).va
 $('#ex').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(ST)],{type:'application/json'}));a.download='today-menu-backup.json';a.click()};
 $('#im').onchange=e=>{const fl=e.target.files[0];if(!fl)return;const rd=new FileReader();rd.onload=()=>{try{const d=JSON.parse(rd.result);if(!d||typeof d!='object'||Array.isArray(d))throw 0;localStorage.setItem('st',JSON.stringify(d));location.reload()}catch(x){alert('این فایل پشتیبان درست نیست')}};rd.readAsText(fl)};
 
+document.addEventListener('click',e=>{const b=e.target.closest('[data-pg]');if(b&&!b.disabled){PG[b.dataset.pg].n+=+b.dataset.d;(b.dataset.pg=='all'?menu:show)();scrollTo(0,0)}
+const s=e.target.closest('[data-st]');if(s){const k=s.dataset.st;ST[k]=Math.min(12,Math.max(k=='ad'?1:0,ST[k]+ +s.dataset.d));sv();hh();show();menu()}
+const dy=e.target.closest('[data-day]');if(dy){PD=+dy.dataset.day;selDay()}});
+function hh(){$('#ad').textContent=f(ST.ad);$('#kd').textContent=f(ST.kd)}hh();
+let PD=0;function selDay(){[...$('#wk').children].forEach((c,i)=>c.classList.toggle('sel',i==PD));$('#dt').innerHTML=ST.plan?D.map((n,i)=>`<span class="chip${i==PD?' on':''}" data-day="${i}">${n}</span>`).join(''):''}
 // ---- plan
 const D=["شنبه","یکشنبه","دوشنبه","سه‌شنبه","چهارشنبه","پنجشنبه","جمعه"],SL=["صبحانه","ناهار","شام","میان‌وعده"],SH=[.25,.35,.28,.12],T=["b","m","m","s"];
 const sh=a=>a.map(x=>[Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
 function gen(){const P=[],pool=T.map(t=>mk(t)),q=pool.map(sh),rice=i=>R[i].m.includes("برنج");for(let d=0;d<7;d++){const pk=k=>{if(!q[k].length)q[k]=sh(pool[k]);return q[k].pop()};const b=pk(0),l=pk(1);let n=pk(2),g=0;while((n==l||(rice(l)&&rice(n)))&&g++<20)n=pk(2);P.push([b,l,n,pk(3)])}return P}
-function calc(){const a=+$('#age').value,h=+$('#ht').value,w=+$('#wt').value;if($('#hc').checked){$('#kc').innerHTML='<div class="card">با توجه به شرایطی که انتخاب کردی، یه برنامه‌ی عمومی مناسب نیست. لطفاً با پزشک یا متخصص تغذیه مشورت کن تا برنامه‌ی مخصوص خودت رو برات بنویسه 💚</div>';$('#wk').innerHTML='';$('#sh').style.display='none';ST.plan=null;sv();return false}
+function calc(){const a=+$('#age').value,h=+$('#ht').value,w=+$('#wt').value;if($('#hc').checked){$('#kc').innerHTML='<div class="card">با توجه به شرایطی که انتخاب کردی، یه برنامه‌ی عمومی مناسب نیست. لطفاً با پزشک یا متخصص تغذیه مشورت کن تا برنامه‌ی مخصوص خودت رو برات بنویسه 💚</div>';$('#wk').innerHTML='';$('#dt').innerHTML='';$('#sh').style.display='none';ST.plan=null;sv();return false}
 if(!(a>=18&&a<=70&&h>=120&&h<=220&&w>=35&&w<=250)){alert('این برنامه برای بزرگسال‌های ۱۸ تا ۷۰ ساله‌ست و سن، قد و وزن باید معقول باشه. برای بقیه حتماً با پزشک مشورت کن.');return false}
 if(w/((h/100)**2)<16){alert('وزنت خیلی پایین‌تر از محدوده‌ی سالمه. لطفاً قبل از هر برنامه‌ای با پزشک مشورت کن.');return false}
 const b=10*w+6.25*h-5*a+($('#sx').value=='m'?5:-161);const bmi=w/((h/100)**2);let g=$('#gl').value;ST.note='';if(bmi<18.5&&g=='l'){g='k';ST.note='وزنت پایین‌تر از محدوده‌ی نرماله، برای همین برنامه رو برای حفظ وزن چیدیم. کم کردن وزن برای تو مناسب نیست و بهتره با پزشک حرف بزنی.'}
@@ -221,7 +276,7 @@ $('#kc').innerHTML=`<div class="card" style="font-size:1.05rem">متابولیس
 $('#wk').innerHTML=ST.plan.map((day,d)=>{let tot=0;const rows=day.map((id,k)=>{const r=R[id],p=Math.min(2,Math.max(.5,Math.round(ST.tg*SH[k]/r.c*4)/4));tot+=p*r.c;
 return `<div class="m">${SL[k]}<select data-d="${d}" data-k="${k}">${mk(T[k]).map(i=>`<option value="${i}" ${i==id?'selected':''}>${esc(R[i].n)}</option>`).join('')}</select>${f(p)} پرس · ${f(Math.round(p*r.c))} کالری</div>`}).join('');
 return `<div class="card"><b>${D[d]}</b>${rows}<div class="m" style="border-top:1px solid var(--br);padding-top:6px">جمع روز: <b style="color:var(--ac)">${f(Math.round(tot))}</b> کالری</div><div class="m">+ سالاد یا سبزی تازه، ۲ تا ۳ واحد میوه و آب کافی</div></div>`}).join('');
-document.querySelectorAll('#wk select').forEach(s=>s.onchange=()=>{ST.plan[s.dataset.d][s.dataset.k]=+s.value;sv();draw()})}
+document.querySelectorAll('#wk select').forEach(s=>s.onchange=()=>{ST.plan[s.dataset.d][s.dataset.k]=+s.value;sv();draw()});selDay()}
 $('#mk').onclick=()=>{if(calc()){ST.plan=gen();sv();draw()}};
 $('#sh').onclick=()=>{ST.plan=gen();sv();draw()};
 draw();
@@ -230,22 +285,76 @@ draw();
 const io=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('in')),{threshold:.08});
 document.querySelectorAll('.rv').forEach(e=>io.observe(e));
 
+// ---- pages
+const PGS=['home','fridge','menu','plan','me'];let cur=-1;
+function go(){const i=Math.max(0,PGS.indexOf((location.hash||'#home').slice(1)));if(i==cur)return;cur=i;
+PGS.forEach((n,k)=>$('#'+n).classList.toggle('on',k==i));
+document.querySelectorAll('.bn a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')=='#'+PGS[i]));
+scrollTo(0,0);window.setPg&&setPg(i)}
+addEventListener('hashchange',go);go();
 // ---- 3D
 try{
-const cv=$('#c'),rd=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true}),sc=new THREE.Scene(),cm=new THREE.PerspectiveCamera(55,1,.1,100);
-cm.position.z=9;rd.setPixelRatio(Math.min(devicePixelRatio,2));
-sc.add(new THREE.AmbientLight(0xffffff,.7));const L=new THREE.DirectionalLight(0xffffff,.9);L.position.set(5,8,6);sc.add(L);
-const G=new THREE.Group();sc.add(G);
-const geo=[new THREE.SphereGeometry(.8,24,24),new THREE.TorusGeometry(.8,.28,16,32),new THREE.CylinderGeometry(.9,.9,.12,32),new THREE.ConeGeometry(.6,1.3,5),new THREE.IcosahedronGeometry(.7)];
-const col=[0xe03131,0xf59f00,0x2f9e44,0xd9480f,0xfcc419,0x8a5a3c];
-for(let i=0;i<34;i++){const m=new THREE.Mesh(geo[i%5],new THREE.MeshStandardMaterial({color:col[i%6],roughness:.5}));
-m.position.set((Math.random()-.5)*20,(Math.random()-.5)*26,-Math.random()*8);m.rotation.set(Math.random()*6,Math.random()*6,0);m.userData={s:.3+Math.random()*.6,f:Math.random()*6};m.scale.setScalar(.6+Math.random()*.8);G.add(m)}
-const rs=()=>{rd.setSize(innerWidth,innerHeight,false);cm.aspect=innerWidth/innerHeight;cm.updateProjectionMatrix()};rs();addEventListener('resize',rs);
-let y=0,ty=0;addEventListener('scroll',()=>{ty=scrollY},{passive:true});
-const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
-(function a(t){requestAnimationFrame(a);y+=(ty-y)*.08;G.position.y=y*.012;G.rotation.y=y*.0006;
-G.children.forEach(m=>{if(!rm){m.rotation.x+=.003*m.userData.s;m.rotation.y+=.004*m.userData.s;m.position.x+=Math.sin(t*.0005+m.userData.f)*.002}});
-cv.style.opacity=Math.max(.28,1-y/700);rd.render(sc,cm)})(0);
+const cv=$('#c'),sm=innerWidth<700,rd=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true,powerPreference:'high-performance'});
+rd.setPixelRatio(Math.min(devicePixelRatio,sm?1.6:2));rd.outputEncoding=THREE.sRGBEncoding;rd.toneMapping=THREE.ACESFilmicToneMapping;rd.toneMappingExposure=1.15;
+const sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(42,1,.1,60);
+sc.add(new THREE.HemisphereLight(0xfff1de,0x7a4423,.85));
+const dl=new THREE.DirectionalLight(0xffffff,1.15);dl.position.set(4,8,6);sc.add(dl);
+const rl=new THREE.PointLight(0xff8a3d,1.1,20);rl.position.set(-5,2,-4);sc.add(rl);
+const M=(c,r=.5,x)=>new THREE.MeshPhysicalMaterial(Object.assign({color:c,roughness:r,clearcoat:.35,clearcoatRoughness:.35},x));
+const S=(g,m,sx=1,sy=1,sz=1)=>{const o=new THREE.Mesh(g,m);o.scale.set(sx,sy,sz);return o};
+const sp=r=>new THREE.SphereGeometry(r,28,20),root=new THREE.Group();sc.add(root);
+// کاسه (Lathe) با نوار فیروزه‌ای
+const P=[[0,0],[.5,0],[.62,.06],[.9,.28],[1.15,.62],[1.3,.95],[1.34,1.02],[1.3,1.03],[1.24,.97],[1.1,.62],[.85,.3],[.55,.14],[0,.12]].map(a=>new THREE.Vector2(a[0],a[1]));
+const bowl=new THREE.Group();root.add(bowl);
+bowl.add(new THREE.Mesh(new THREE.LatheGeometry(P,72),M(0xf7efe2,.22,{clearcoat:1,clearcoatRoughness:.08,side:THREE.DoubleSide})));
+[[.8,1.24],[.55,1.11]].forEach(([y,r])=>{const t=new THREE.Mesh(new THREE.TorusGeometry(r,.028,10,72),M(0x1c7d93,.3));t.rotation.x=Math.PI/2;t.position.y=y;bowl.add(t)});
+// برنج با دانه‌های زعفران
+const rice=S(new THREE.SphereGeometry(1,40,20,0,Math.PI*2,0,Math.PI/2),M(0xfff7e8,.75,{clearcoat:0}),1.05,.46,1.05);rice.position.y=.58;bowl.add(rice);
+const N=110,gr=new THREE.InstancedMesh(new THREE.SphereGeometry(.035,6,4),new THREE.MeshStandardMaterial({color:0xffb703,roughness:.55}),N),mx=new THREE.Matrix4(),qq=new THREE.Quaternion(),ev=new THREE.Euler(),ps=new THREE.Vector3(),v3=new THREE.Vector3(2.2,1,1);
+for(let i=0;i<N;i++){const u=Math.random()*6.28,rh=Math.sqrt(Math.random())*.95;ps.set(Math.cos(u)*rh,.58+.46*Math.sqrt(Math.max(0,1-(rh/1.05)**2))+.015,Math.sin(u)*rh);ev.set(Math.random()*.6,Math.random()*6.28,0);qq.setFromEuler(ev);mx.compose(ps,qq,v3);gr.setMatrixAt(i,mx)}
+bowl.add(gr);
+// سایه‌ی نرم زیر کاسه
+const cc=document.createElement('canvas');cc.width=cc.height=128;const cx=cc.getContext('2d'),gd=cx.createRadialGradient(64,64,4,64,64,62);gd.addColorStop(0,'rgba(0,0,0,.45)');gd.addColorStop(1,'rgba(0,0,0,0)');cx.fillStyle=gd;cx.fillRect(0,0,128,128);
+const blob=new THREE.Mesh(new THREE.PlaneGeometry(4.4,4.4),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(cc),transparent:true,depthWrite:false}));blob.rotation.x=-Math.PI/2;blob.position.y=-.02;root.add(blob);
+// بخار
+const sc2=document.createElement('canvas');sc2.width=sc2.height=64;const sx=sc2.getContext('2d'),sr=sx.createRadialGradient(32,32,0,32,32,32);sr.addColorStop(0,'rgba(255,255,255,1)');sr.addColorStop(1,'rgba(255,255,255,0)');sx.fillStyle=sr;sx.fillRect(0,0,64,64);
+const NS=40,sa=new Float32Array(NS*3),sg=new THREE.BufferGeometry();sg.setAttribute('position',new THREE.BufferAttribute(sa,3));
+const sd=Array.from({length:NS},()=>({a:Math.random()*6.28,r:Math.random()*.6,t:Math.random()}));
+const steam=new THREE.Points(sg,new THREE.PointsMaterial({size:.75,map:new THREE.CanvasTexture(sc2),transparent:true,opacity:.3,depthWrite:false,color:0xfff3e0}));bowl.add(steam);
+window.setTh=d=>steam.material.color.set(d?0xfff3e0:0xc99a72);setTh(isD());
+// مواد غذایی دور کاسه
+const cap=(y,r=.17)=>{const c=S(new THREE.ConeGeometry(r,.14,6),M(0x2f9e44,.7));c.position.y=y;return c};
+const mk2=[
+()=>{const g=new THREE.Group();g.add(S(sp(.42),M(0xe03131,.3),1,.86,1),cap(.35));return g},
+()=>{const g=new THREE.Group();g.add(S(sp(.3),M(0x5f3dc4,.22,{clearcoat:.8}),1,1.9,1),cap(.58));return g},
+()=>S(sp(.36),M(0xfcc419,.45),1.3,1,1),
+()=>S(sp(.28),M(0xf3dcc0,.5),1,1.3,1),
+()=>{const c=S(new THREE.ConeGeometry(.17,1,18),M(0xf76707,.5));c.rotation.z=1.2;const g=new THREE.Group();g.add(c);return g},
+()=>{const g=new THREE.Group();g.add(S(sp(.36),M(0xd9a05b,.5),1,.92,1));const c=S(new THREE.ConeGeometry(.1,.2,8),M(0xc9a063,.6));c.position.y=.36;g.add(c);return g},
+()=>S(sp(.34),M(0xb02a37,.4),1,.9,1),
+()=>S(sp(.3),M(0xfcc419,.45),1.25,1,1)];
+const ring=mk2.map((f,i)=>{const o=f();o.userData={a:i/mk2.length*6.28,y:.6+((i*53)%9)/9*1.6,k:.8+(i%3)*.12,s:Math.random()*6};root.add(o);return o});
+// ذرات ادویه
+const ND=70,da=new Float32Array(ND*3).map(()=>(Math.random()-.5)*14),dg=new THREE.BufferGeometry();dg.setAttribute('position',new THREE.BufferAttribute(da,3));
+const dust=new THREE.Points(dg,new THREE.PointsMaterial({size:.07,color:0xffb347,transparent:true,opacity:.55,depthWrite:false}));sc.add(dust);
+let W=0,H=0,rx=3,dist=9;
+function rs(){W=innerWidth;H=innerHeight;rd.setSize(W,H,false);cam.aspect=W/H;rx=W/H<.8?2.05:3.1;dist=Math.max(7.5,(rx+.7)/(Math.tan(21*Math.PI/180)*cam.aspect));cam.updateProjectionMatrix()}
+rs();let lw=W;addEventListener('resize',()=>{if(innerWidth!=lw||Math.abs(innerHeight-H)>150){lw=innerWidth;rs()}});
+let p=0,tp=0,yaw=0,ty=0,drag=0,lx=0;window.setPg=i=>{tp=i?.3+i*.1:0};setPg(cur);
+
+const hero=document.querySelector('.hero');
+hero.addEventListener('pointerdown',e=>{drag=1;lx=e.clientX});['pointerup','pointercancel'].forEach(n=>addEventListener(n,()=>drag=0));
+hero.addEventListener('pointermove',e=>{if(drag){ty+=(e.clientX-lx)*.012;lx=e.clientX}});
+const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;let T0=0,fr=0;
+(function loop(t){requestAnimationFrame(loop);if(document.hidden)return;if(sm&&(fr++&1))return;const dt=Math.min(.05,(t-T0)/1000||0);T0=t;
+p+=(tp-p)*.07;yaw+=(ty-yaw)*.1;if(!drag&&!rm)ty+=dt*.25;
+const q=Math.min(1,p*3.2);
+root.rotation.y=yaw+p*5;root.position.y=-.5+q*1.9;root.scale.setScalar(1-q*.35);
+cam.position.set(Math.sin(p*2)*1.2,dist*.4+p*1.5,dist);cam.lookAt(0,.7,0);
+ring.forEach(o=>{const u=o.userData;u.a+=dt*.3*u.k;o.position.set(Math.cos(u.a)*rx,u.y+Math.sin(t*.001+u.s)*.12,Math.sin(u.a)*rx*.7);o.rotation.y+=dt*.8;o.rotation.x+=dt*.3});
+for(let i=0;i<NS;i++){const e=sd[i];e.t=(e.t+dt*.16)%1;const h=e.t;sa[i*3]=Math.cos(e.a+h*4)*e.r*(.4+h);sa[i*3+1]=1.05+h*2.1;sa[i*3+2]=Math.sin(e.a+h*4)*e.r*(.4+h)}
+sg.attributes.position.needsUpdate=true;dust.rotation.y=t*.00004;dust.position.y=p*3;
+rd.render(sc,cam)})(0);
 }catch(e){}
 </script>
 </body>
