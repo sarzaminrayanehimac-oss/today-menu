@@ -1,0 +1,4 @@
+Third-party assets
+- Noto Emoji (Google), Apache License 2.0: https://github.com/googlefonts/noto-emoji  (food icons, embedded in index.html)
+- Vazirmatn font (Saber Rastikerdar), SIL OFL 1.1: https://github.com/rastikerdar/vazirmatn  (fonts/Vazirmatn.woff2)
+- three.js r128, MIT: https://threejs.org  (lib/three.min.js)
