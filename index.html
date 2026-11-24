@@ -120,6 +120,9 @@ label.hc{display:flex;gap:10px;align-items:flex-start;margin:10px 0;font-size:.9
 .pp .ph2{position:absolute;inset:0;clip-path:inset(0 32% 80.5% 41.5%);-webkit-mask-image:linear-gradient(#000 0,#000 15%,transparent 19.5%);mask-image:linear-gradient(#000 0,#000 15%,transparent 19.5%);transform-origin:55% 17%;will-change:transform}
 .xr{position:absolute;top:-8px;left:-2px;width:26px;height:26px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(120,30,20,.9);color:#fff;font:inherit;line-height:1;z-index:2;padding:0;cursor:pointer}
 .vid{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.vid a{flex:1 1 130px;text-align:center;text-decoration:none;font-weight:700;color:var(--ac);border:1.5px solid var(--ac);border-radius:12px;padding:8px 10px;font-size:.88rem;background:var(--c2)}
+.seg{display:flex;gap:6px;margin:14px 0 4px}.seg button{flex:1;font:inherit;font-weight:700;font-size:.92rem;border:1.5px solid var(--br);background:var(--c2);color:var(--fg);border-radius:14px;padding:9px 6px;cursor:pointer}
+.seg button.on{background:linear-gradient(135deg,var(--ac2),var(--ac));color:#fff;border-color:transparent}.seg b{background:rgba(0,0,0,.18);border-radius:99px;padding:0 8px;font-size:.8rem;margin-right:4px}
+.res .card>b{display:block;margin-bottom:3px;padding-left:34px}.res .tag{display:inline-block;margin:0 0 3px 4px}
 </style>
 </head>
 <body>
@@ -142,6 +145,8 @@ label.hc{display:flex;gap:10px;align-items:flex-start;margin:10px 0;font-size:.9
   <div class="stage"><p class="hint2">رو هر چی داری بزن تا بره تو سبدت 🧺</p><div id="tabs" class="tabs"></div><div id="sg" class="sg"><div id="pp" class="pp"><img class="pb" alt="" data-me><div class="ph2"><img alt="" data-me></div></div><div id="ings"></div></div></div>
   <div class="card" style="margin-top:12px"><b>چیزی داری که تو لیست نبود؟ بنویس!</b><div style="display:flex;gap:8px;margin-top:8px"><input id="ni" list="dl" placeholder="مثلاً زعفران، سس، ترشی..."><button class="btn" id="na" style="margin:0;white-space:nowrap">اضافه کن</button></div><datalist id="dl"></datalist></div>
   <div style="margin:12px 0"><button class="btn" id="rnd">🎲 یه چیزی پیشنهاد بده</button><button class="btn o" id="clr">پاک کردن همه</button></div>
+  <div id="seg" class="seg" style="display:none"><button data-md="0" class="on">✅ آماده‌ی پخت <b>۰</b></button><button data-md="1">🛒 یه ماده کم دارم <b>۰</b></button></div>
+  <label id="mustw" class="hc" style="display:none"><input type="checkbox" id="must"> 🎯 حتماً همه‌ی موادی که زدم توش باشه</label>
   <div id="res" class="res"></div><div id="resp" class="pager"></div>
 </section>
 
@@ -470,11 +475,19 @@ $('#ings').onclick=e=>{const x=e.target.closest('[data-rm]');if(x){rmC(x.dataset
 $('#bp').onclick=()=>$('#res').scrollIntoView({behavior:'smooth',block:'start'});
 
 const card=(r,tag)=>`<div class="card"><b>${esc(r.n)}</b> ${r.o=='r'?'<span class="tag">🍽️ رستورانی</span>':r.o=='w'?'<span class="tag">🌍 خارجی</span>':r.o=='q'?'<span class="tag">📜 قدیمی</span>':r.o=='d'?'<span class="tag">🏺 دزفولی</span>':r.o=='f'?'<span class="tag w">🍔 فست‌فود</span>':''} ${tag||''}<span style="float:left"><span data-fav="${esc(r.n)}" style="cursor:pointer;font-size:1.2rem">${ST.fav.includes(r.n)?'❤️':'🤍'}</span>${r.my?` <span data-del="${esc(r.n)}" style="cursor:pointer" title="حذف">🗑️</span>`:''}</span><div class="sm">⏱ ${f(r.tm)} دقیقه · 🔥 حدود ${f(r.c)} کالری</div><details><summary>طرز تهیه (برای ${lab()})</summary><p><b>مواد:</b> ${esc(sc(r.i,kf()))}</p><ol>${r.s.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>${r.ck||r.my?'':'<p class="sm">⚠️ این طرز تهیه تقریبیه؛ حتماً ویدیوش رو هم ببین.</p>'}<div class="vid"><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${vq(r)}">▶ ویدیو در یوتیوب</a><a target="_blank" rel="noopener" href="https://www.aparat.com/search/${vq(r)}">▶ ویدیو در آپارات</a></div></details></div>`;
-function match(){const H=new Set(ST.have.map(nz));return R.filter(r=>!r.x&&r.t!='s').map(r=>({r,mi:r.m.filter(x=>!H.has(nz(x)))})).filter(o=>o.mi.length<=1).sort((a,b)=>a.mi.length-b.mi.length)}
-function show(){const m=match();if(!ST.have.length||!m.length){$('#res').innerHTML=!ST.have.length?'<p class="sm">اول بزن ببینم چی داری 👆</p>':'<p class="sm">با اینا چیزی پیدا نکردم 😅 چند تا ماده‌ی دیگه هم اضافه کن.</p>';$('#resp').innerHTML='';return}
-pager('res',m,o=>card(o.r,o.mi.length?`<span class="tag w">فقط ${o.mi[0]} کم داری</span>`:'<span class="tag">همه‌ی مواد رو داری ✓</span>'),o=>o.r.n)}
+let MD=0;
+function match(md){const H=new Set(ST.have.map(nz));return R.filter(r=>!r.x&&r.t!='s').map(r=>({r,mi:r.m.filter(x=>!H.has(nz(x))),used:r.m.filter(x=>H.has(nz(x))).length}))
+.filter(o=>o.used>0&&o.mi.length==md&&(!ST.must||ST.have.every(h=>o.r.m.some(m=>nz(m)==nz(h))))).sort((a,b)=>b.used-a.used||a.r.m.length-b.r.m.length)}
+function show(){const a=match(0),b=match(1),n=ST.have.length;
+$('#seg').querySelectorAll('button').forEach(x=>{x.classList.toggle('on',+x.dataset.md==MD);x.querySelector('b').textContent=f(+x.dataset.md?b.length:a.length)});
+$('#seg').style.display=n?'':'none';$('#mustw').style.display=n>1?'':'none';
+const m=MD?b:a;
+if(!n||!m.length){$('#res').innerHTML=!n?'<p class="sm">اول بزن ببینم چی داری 👆</p>':MD?'<p class="sm">غذایی پیدا نشد که فقط یه ماده کمش باشه.</p>':`<p class="sm">با اینا غذای کاملی پیدا نکردم 😅${b.length?` ولی ${f(b.length)} تا غذا هست که فقط یه ماده کم دارن؛ بالا روی «یه ماده کم دارم» بزن.`:' چند تا ماده‌ی دیگه هم اضافه کن.'}</p>`;$('#resp').innerHTML='';return}
+pager('res',m,o=>card(o.r,(MD?`<span class="tag w">فقط ${esc(o.mi[0])} کم داری</span>`:'<span class="tag">همه‌ی مواد رو داری ✓</span>')+(n>1?` <span class="tag">از ${f(o.used)} ماده‌ات</span>`:'')),o=>o.r.n)}
+$('#seg').onclick=e=>{const b=e.target.closest('[data-md]');if(b){MD=+b.dataset.md;show()}};
+$('#must').checked=!!ST.must;$('#must').onchange=e=>{ST.must=e.target.checked;sv();show()};
 $('#clr').onclick=()=>{ST.have=[];sv();ings();show()};
-$('#rnd').onclick=()=>{const m=match().filter(o=>!o.mi.length);if(!m.length){alert('اول چند تا ماده انتخاب کن 😊');return}const o=m[Math.random()*m.length|0];$('#resp').innerHTML='';$('#res').innerHTML=card(o.r,'<span class="tag">پیشنهاد امروز 🎲</span>');$('#res').querySelector('details').open=true}
+$('#rnd').onclick=()=>{const m=match(0);if(!m.length){alert('اول چند تا ماده انتخاب کن 😊');return}const o=m[Math.random()*m.length|0];$('#resp').innerHTML='';$('#res').innerHTML=card(o.r,'<span class="tag">پیشنهاد امروز 🎲</span>');$('#res').querySelector('details').open=true}
 show();
 
 // ---- theme + PWA
